@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitho Khaja NZ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFFFFF;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #DA291C;
+            padding: 1rem 2rem;
+            color: #FFC107;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+        }
+        .navbar .brand {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #FFC107;
+            text-decoration: none;
+        }
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .nav-links a {
+            color: #FFC107;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .navbar .nav-links a:hover {
+            color: #FFFFFF;
+        }
+        .navbar .nav-links .cart-icon {
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .navbar .nav-links .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FFC107;
+            color: #DA291C;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 50%;
+            padding: 2px 6px;
+        }
+        .navbar .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .btn-auth {
+            background-color: #FFC107;
+            color: #000000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-left: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: 1px solid #000000;
+        }
+        .btn-auth:hover {
+            background-color: #FFB300;
+            transform: scale(1.05);
+        }
+        .filter-search-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 5rem auto 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 200px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #000000;
+            border-radius: 0.5rem 0 0 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        .search-bar button {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.5rem 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-bar button:hover {
+            background-color: #B71C1C;
+        }
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .category-btn {
+            background-color: #FFC107;
+            color: #DA291C;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: 1px solid #000000;
+        }
+        .category-btn.active {
+            background-color: #DA291C;
+            color: #FFFFFF;
+        }
+        .category-btn:hover {
+            background-color: #FFB300;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            padding: 0 2rem 2rem;
+            margin-top: 1rem;
+        }
+        .menu-item {
+            background-color: #FFFFFF;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 2px solid #000000;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+            loading: lazy;
+        }
+        .menu-item h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .menu-item p {
+            font-size: 0.85rem;
+            color: #000000;
+            margin-bottom: 0.5rem;
+            flex-grow: 1;
+            font-weight: 400;
+        }
+        .menu-item .price {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 0.5rem;
+        }
+        .btn-jhola {
+            background-color: #FFC107;
+            color: #000000;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .btn-jhola i {
+            margin-right: 0.5rem;
+        }
+        .btn-jhola:hover {
+            background-color: #FFB300;
+            transform: scale(1.05);
+        }
+        .btn-order {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .btn-order:hover {
+            background-color: #B71C1C;
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #FFFFFF;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #DA291C;
+            text-align: center;
+        }
+        .modal input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #000000;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+        .modal input:focus {
+            border-color: #FFC107;
+            outline: none;
+        }
+        .modal button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .modal .btn-submit {
+            background-color: #DA291C;
+            color: #FFFFFF;
+        }
+        .modal .btn-submit:hover {
+            background-color: #B71C1C;
+            transform: scale(1.05);
+        }
+        .modal .btn-cancel {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        .modal .btn-cancel:hover {
+            background-color: #333333;
+            transform: scale(1.05);
+        }
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background-color: #DA291C;
+            color: #FFC107;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            display: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid #000000;
+            animation: slideInFromTop 0.5s ease forwards;
+        }
+        .notification.show {
+            display: block;
+        }
+        @keyframes slideInFromTop {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 70px;
+            right: 0;
+            background-color: #DA291C;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 20px;
+            z-index: 2000;
+        }
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: #FFC107;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #FFFFFF;
+        }
+        .sidebar .cart-icon {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #FFC107;
+            cursor: pointer;
+        }
+        .hamburger {
+            font-size: 1.5rem;
+            color: #FFC107;
+            cursor: pointer;
+            display: none;
+        }
+        .floating-cart {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFC107;
+            color: #000000;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .floating-cart:hover {
+            transform: scale(1.1);
+        }
+        .floating-cart i {
+            font-size: 1.5rem;
+        }
+        .floating-cart .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #DA291C;
+            color: #FFC107;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 50%;
+            padding: 2px 6px;
+        }
+        @media (max-width: 768px) {
+            .navbar .nav-links, .navbar .auth-buttons {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .navbar .brand {
+                font-size: 1.2rem;
+            }
+            .filter-search-container {
+                max-width: 300px;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar.open {
+                width: 250px;
+            }
+            .floating-cart {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand">Mitho Khaja NZ</a>
+        <span class="hamburger" onclick="openSidebar()">☰</span>
+        <div class="nav-links">
+            <a href="#" onclick="showTab('menu')">Menu</a>
+            <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-basket"></i><span class="cart-count" id="cart-count">0</span></a>
+        </div>
+        <div class="auth-buttons"></div>
+    </nav>
+
+    <div id="sidebar" class="sidebar">
+        <span class="closebtn" onclick="closeSidebar()">×</span>
+        <a href="#" onclick="showTab('menu')">Menu</a>
+        <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-basket"></i> Cart <span class="cart-count" id="sidebar-cart-count">0</span></a>
+        <div id="sidebar-auth"></div>
+    </div>
+
+    <div id="notification" class="notification">
+        Item Added to Jhola!
+    </div>
+
+    <div id="login-modal" class="modal flex">
+        <div class="modal-content">
+            <h2>Login</h2>
+            <input type="text" id="login-id" placeholder="ID" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <p id="login-error" class="text-red-500 mb-2 hidden">Invalid credentials</p>
+            <div class="flex justify-end space-x-2">
+                <button onclick="hideLogin()" class="btn-cancel">Cancel</button>
+                <button onclick="handleLogin()" class="btn-submit">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal flex">
+        <div class="modal-content">
+            <h2>Signup</h2>
+            <input type="text" id="signup-id" placeholder="ID" required>
+            <input type="password" id="signup-password" placeholder="Password" required>
+            <p id="signup-error" class="text-red-500 mb-2 hidden">User already exists</p>
+            <div class="flex justify-end space-x-2">
+                <button onclick="hideSignup()" class="btn-cancel">Cancel</button>
+                <button onclick="handleSignup()" class="btn-submit">Signup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-tab" class="tab-content active">
+        <div class="py-6 px-4 md:px-8">
+            <div class="filter-search-container">
+                <div class="search-bar">
+                    <input type="text" id="search-bar" placeholder="Search menu items..." onkeyup="searchMenu()">
+                    <button onclick="searchMenu()"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="category-filter">
+                    <button class="category-btn active" onclick="filterByCategory('All')">All</button>
+                    <button class="category-btn" onclick="filterByCategory('Momo')">Momo</button>
+                    <button class="category-btn" onclick="filterByCategory('Chowmein')">Chowmein</button>
+                    <button class="category-btn" onclick="filterByCategory('Fried Rice')">Fried Rice</button>
+                    <button class="category-btn" onclick="filterByCategory('Snacks')">Snacks</button>
+                    <button class="category-btn" onclick="filterByCategory('Drinks')">Drinks</button>
+                </div>
+            </div>
+            <div class="menu-grid" id="menu-content"></div>
+        </div>
+    </div>
+
+    <a href="cart.html" class="floating-cart">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="floating-cart-count">0</span>
+    </a>
+
+    <script>
+        const menuData = [
+            { name: "Veg Momo", description: "10 pcs served with chatni", price: 8.50, image: "vegmomo.png", category: "Momo" },
+            { name: "Chicken Momo", description: "10 pcs served with chatni", price: 10.50, image: "chickenmomo.png", category: "Momo" },
+            { name: "Pork Momo", description: "10 pcs served with chatni", price: 12.00, image: "porkmomo.png", category: "Momo" },
+            { name: "Warm Jhol Momo", description: "Momo curry", price: 14.00, image: "warmjholmomo.png", category: "Momo" },
+            { name: "Chiso Jhol Momo", description: "Kathmandu style jhol momo", price: 14.50, image: "chisojholmomo.png", category: "Momo" },
+            { name: "Chicken Chowmein", description: "", price: 12.00, image: "chickenchowmein.png", category: "Chowmein" },
+            { name: "Veg Chowmein", description: "", price: 9.50, image: "vegchowmein.png", category: "Chowmein" },
+            { name: "Chicken Chilli", description: "", price: 10.00, image: "chickenchilli.png", category: "Snacks" },
+            { name: "Saadeko Wai Wai", description: "", price: 8.00, image: "saadekowaiwai.png", category: "Snacks" },
+            { name: "Classic Fries", description: "Comes with sauce", price: 4.50, image: "classicfries.png", category: "Snacks" },
+            { name: "Masala Fries", description: "Has spices and mayo, comes with sauce", price: 5.00, image: "masalafries.png", category: "Snacks" },
+            { name: "Chicken Wrap", description: "", price: 9.00, image: "chickenwrap.png", category: "Snacks" },
+            { name: "Veg Fried Rice", description: "", price: 8.50, image: "vegfriedrice.png", category: "Fried Rice" },
+            { name: "Chicken Fried Rice", description: "", price: 10.50, image: "chickenfriedrice.png", category: "Fried Rice" },
+            { name: "Coke 1.5L", description: "Refreshing cola drink", price: 4.50, image: "coke1.5l.png", category: "Drinks" },
+            { name: "Sprite 1.5L", description: "Refreshing lemon-lime drink", price: 4.50, image: "sprite1.5l.png", category: "Drinks" },
+            { name: "Coke Can 330ml", description: "Refreshing cola drink", price: 2.50, image: "cokecan330ml.png", category: "Drinks" },
+            { name: "Sprite Can 330ml", description: "Refreshing lemon-lime drink", price: 2.50, image: "spritecan330ml.png", category: "Drinks" },
+            { name: "Coke Zero Can 330ml", description: "Zero sugar cola drink", price: 2.50, image: "cokezerocan330ml.png", category: "Drinks" }
+        ];
+
+        let users = [
+            { id: "admin", password: "admin123", role: "admin" },
+            { id: "aayush", password: "aayush@123", role: "user" },
+            { id: "koshal", password: "koshal@123", role: "user" },
+            { id: "richa", password: "richa@123", role: "user" },
+            { id: "susmita", password: "susmita@123", role: "user" },
+            { id: "dikshya", password: "dikshya@123", role: "user" },
+            { id: "sita", password: "sita@123", role: "user" }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let selectedCategory = 'All';
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const sidebarCartCount = document.getElementById('sidebar-cart-count');
+            const floatingCartCount = document.getElementById('floating-cart-count');
+            cartCount.textContent = cart.length;
+            if (sidebarCartCount) sidebarCartCount.textContent = cart.length;
+            if (floatingCartCount) floatingCartCount.textContent = cart.length;
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            notification.style.animation = 'slideInFromTop 0.5s ease forwards';
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 500);
+            }, 3000);
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`${tabId}-tab`).classList.add('active');
+            closeSidebar();
+        }
+
+        function showLogin() { document.getElementById('login-modal').style.display = 'flex'; closeSidebar(); }
+        function hideLogin() { document.getElementById('login-modal').style.display = 'none'; }
+        function showSignup() { document.getElementById('signup-modal').style.display = 'flex'; closeSidebar(); }
+        function hideSignup() { document.getElementById('signup-modal').style.display = 'none'; }
+
+        function handleLogin() {
+            const id = document.getElementById('login-id').value;
+            const password = document.getElementById('login-password').value;
+            const user = users.find(u => u.id === id && u.password === password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                hideLogin();
+                updateAuthSection();
+                updateSidebarAuth();
+                if (user.role === 'admin') window.location.href = 'admin.html';
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function handleSignup() {
+            const id = document.getElementById('signup-id').value;
+            const password = document.getElementById('signup-password').value;
+            if (users.some(u => u.id === id)) {
+                document.getElementById('signup-error').classList.remove('hidden');
+                return;
+            }
+            users.push({ id, password, role: 'user' });
+            currentUser = { id, password, role: 'user' };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            hideSignup();
+            updateAuthSection();
+            updateSidebarAuth();
+        }
+
+        function updateAuthSection() {
+            const authButtons = document.querySelector('.auth-buttons');
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <img src="useravatar.png" alt="Avatar" class="w-8 h-8 rounded-full">
+                        <a href="#" onclick="logout()" class="btn-auth">Logout</a>
+                    </div>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <a href="#" onclick="showLogin()" class="btn-auth">Login</a>
+                    <a href="#" onclick="showSignup()" class="btn-auth">Signup</a>
+                `;
+            }
+        }
+
+        function updateSidebarAuth() {
+            const sidebarAuth = document.getElementById('sidebar-auth');
+            if (currentUser) {
+                sidebarAuth.innerHTML = `
+                    <a href="#" onclick="logout()" class="block py-2 px-4 text-sm text-FFC107 hover:bg-DA291C">Logout</a>
+                `;
+            } else {
+                sidebarAuth.innerHTML = `
+                    <a href="#" onclick="showLogin()" class="block py-2 px-4 text-sm text-FFC107 hover:bg-DA291C">Login</a>
+                    <a href="#" onclick="showSignup()" class="block py-2 px-4 text-sm text-FFC107 hover:bg-DA291C">Signup</a>
+                `;
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateAuthSection();
+            updateSidebarAuth();
+            showTab('menu');
+            closeSidebar();
+        }
+
+        function renderMenu(filteredData) {
+            const menuContent = document.getElementById('menu-content');
+            let html = '';
+            filteredData.forEach(item => {
+                html += `
+                    <div class="menu-item">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy">
+                        <h4>${item.name}</h4>
+                        <p>${item.description}</p>
+                        <p class="price">${item.price > 0 ? `$${item.price.toFixed(2)}` : 'N/A'}</p>
+                        ${item.price > 0 ? `
+                            <div class="flex space-x-2">
+                                <a href="#" onclick='addToCart(event, ${JSON.stringify(item)})' class="btn-jhola"><i class="fas fa-shopping-bag"></i> Add to Jhola</a>
+                                <a href="#" onclick='orderNow(${JSON.stringify(item)})' class="btn-order">Order</a>
+                            </div>
+                        ` : ''}
+                    </div>`;
+            });
+            menuContent.innerHTML = html;
+        }
+
+        function filterByCategory(category) {
+            selectedCategory = category;
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === category) {
+                    btn.classList.add('active');
+                }
+            });
+
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            let filteredData = menuData;
+
+            if (category !== 'All') {
+                filteredData = filteredData.filter(item => item.category === category);
+            }
+
+            if (query) {
+                filteredData = filteredData.filter(item => 
+                    item.name.toLowerCase().includes(query) || 
+                    (item.description && item.description.toLowerCase().includes(query))
+                );
+            }
+
+            renderMenu(filteredData);
+        }
+
+        function searchMenu() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            let filteredData = menuData;
+
+            if (selectedCategory !== 'All') {
+                filteredData = filteredData.filter(item => item.category === selectedCategory);
+            }
+
+            filteredData = filteredData.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                (item.description && item.description.toLowerCase().includes(query))
+            );
+
+            renderMenu(filteredData);
+        }
+
+        function addToCart(event, item) {
+            event.preventDefault();
+            cart.push({ ...item, quantity: 1 });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification('Item Added to Jhola!');
+        }
+
+        function orderNow(item) {
+            const orderData = {
+                userId: currentUser ? currentUser.id : 'guest',
+                item: item.name,
+                price: item.price,
+                quantity: 1,
+                timestamp: new Date().toISOString()
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbyXkT53kLhcsT-ez2d2M4aY9dLjMMDAuDeLfgT-d68fogWmG-3rLzBpJp-CuCXfnn0nxA/exechttps://script.google.com/macros/s/AKfycbzSfqzeoQmlNHO8dWfMkOkVuqGKSfSPHgPkeMdVQuFJ/dev', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Order placed successfully!');
+                    cart = [{ ...item, quantity: 1 }];
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount();
+                    window.location.href = 'cart.html';
+                } else {
+                    showNotification('Failed to place order.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error placing order.');
+            });
+        }
+
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('open');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        renderMenu(menuData);
+        updateAuthSection();
+        updateSidebarAuth();
+        updateCartCount();
+    </script>
+</body>
+</html>
