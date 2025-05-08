@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Mitho Khaja NZ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFFFFF;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #DA291C;
+            padding: 1rem 2rem;
+            color: #FFC107;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+            box-sizing: border-box;
+        }
+        .navbar .brand {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #FFC107;
+            text-decoration: none;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: #FFC107;
+            cursor: pointer;
+        }
+        .confirmation-section {
+            margin-top: 90px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .checkmark-container {
+            margin: 2rem auto;
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        .checkmark-circle {
+            width: 100px;
+            height: 100px;
+            background-color: #DA291C;
+            border-radius: 50%;
+            position: absolute;
+            animation: scaleIn 0.5s ease forwards;
+        }
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 30px;
+            height: 50px;
+            border-right: 8px solid #FFFFFF;
+            border-bottom: 8px solid #FFFFFF;
+            opacity: 0;
+            animation: drawCheck 0.5s ease forwards 0.5s;
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        @keyframes drawCheck {
+            0% { height: 0; opacity: 1; }
+            50% { height: 50px; }
+            100 { width: 30px; opacity: 1; }
+        }
+        .confirmation-section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #DA291C;
+            margin-bottom: 0.5rem;
+        }
+        .confirmation-section .order-id {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .confirmation-section p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .order-summary {
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 0.5rem;
+            max-width: 600px;
+        }
+        .order-summary h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .order-summary .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .order-summary .totals {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        .btn-back {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-back:hover {
+            background-color: #B71C1C;
+        }
+        @media (max-width: 768px) {
+            .navbar .brand {
+                font-size: 1.2rem;
+            }
+            .confirmation-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand">Mitho Khaja NZ</a>
+    </nav>
+
+    <div class="confirmation-section">
+        <div class="checkmark-container">
+            <div class="checkmark-circle"></div>
+            <div class="checkmark"></div>
+        </div>
+        <h2>Order Confirmed!</h2>
+        <p class="order-id">Order ID: <span id="order-id"></span></p>
+        <p>Thank you for your order. You'll receive a confirmation email soon.</p>
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div id="order-items"></div>
+            <div class="totals">
+                <p>Subtotal</p>
+                <p id="order-subtotal">$0.00</p>
+            </div>
+            <div class="totals" id="discount-row" style="display: none;">
+                <p>Discount</p>
+                <p id="order-discount">$0.00</p>
+            </div>
+            <div class="totals">
+                <p>Delivery Charge</p>
+                <p id="order-delivery-charge">$0.00</p>
+            </div>
+            <div class="totals">
+                <p>Total</p>
+                <p id="order-total">$0.00</p>
+            </div>
+        </div>
+        <a href="index.html" class="btn-back">Back to Menu</a>
+    </div>
+
+    <script>
+        // Retrieve order details from localStorage
+        const orderDetails = JSON.parse(localStorage.getItem('orderDetails')) || {};
+
+        // Check if orderDetails exists, otherwise show an error
+        if (!orderDetails || !orderDetails.items || orderDetails.items.length === 0) {
+            alert('No order details found. Please try again.');
+            window.location.href = 'index.html';
+            throw new Error('No order details available');
+        }
+
+        // Populate order items
+        const orderItems = document.getElementById('order-items');
+        let html = '';
+        orderDetails.items.forEach(item => {
+            html += `
+                <div class="item">
+                    <p>${item.name} (x${item.quantity})</p>
+                    <p>$${(item.price * item.quantity).toFixed(2)}</p>
+                </div>`;
+        });
+        orderItems.innerHTML = html;
+
+        // Populate summary details
+        document.getElementById('order-subtotal').textContent = `$${orderDetails.subtotal.toFixed(2)}`;
+        if (orderDetails.discount > 0) {
+            document.getElementById('discount-row').style.display = 'flex';
+            document.getElementById('order-discount').textContent = `-$${orderDetails.discount.toFixed(2)}`;
+        }
+        document.getElementById('order-delivery-charge').textContent = `$${orderDetails.deliveryCharge.toFixed(2)}`;
+        document.getElementById('order-total').textContent = `$${orderDetails.total.toFixed(2)}`;
+        document.getElementById('order-id').textContent = orderDetails.orderId || 'N/A';
+
+        // Simulate email confirmation (in a real app, this would trigger an email API)
+        console.log('Simulating email confirmation for Order ID:', orderDetails.orderId);
+        alert('A confirmation email has been simulated for your order. Check console for details.');
+
+        // Simulate order tracking link (placeholder)
+        const trackingLink = document.createElement('a');
+        trackingLink.href = '#';
+        trackingLink.textContent = 'Track Your Order';
+        trackingLink.className = 'btn-back mt-4 inline-block';
+        trackingLink.onclick = (e) => {
+            e.preventDefault();
+            alert(`Tracking for Order ID ${orderDetails.orderId} is not yet implemented. Feature coming soon!`);
+        };
+        document.querySelector('.confirmation-section').appendChild(trackingLink);
+
+        // Clear orderDetails from localStorage after display (optional, to prevent reuse)
+        // Uncomment the line below if you want to clear it after confirmation
+        // localStorage.removeItem('orderDetails');
+    </script>
+</body>
+</html>

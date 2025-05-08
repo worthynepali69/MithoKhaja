@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Mitho Khaja NZ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFFFFF;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #DA291C;
+            padding: 1rem 2rem;
+            color: #FFC107;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+        }
+        .navbar .brand {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #FFC107;
+            text-decoration: none;
+        }
+        .hamburger {
+            font-size: 1.5rem;
+            color: #FFC107;
+            cursor: pointer;
+            display: none;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .nav-links a {
+            color: #FFC107;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #FFFFFF;
+        }
+        .nav-links .cart-icon {
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .nav-links .cart-icon .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FFC107;
+            color: #DA291C;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 50%;
+            padding: 2px 6px;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 70px;
+            right: 0;
+            background-color: #DA291C;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 20px;
+            z-index: 2000;
+        }
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: #FFC107;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #FFFFFF;
+        }
+        .sidebar .cart-icon {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #FFC107;
+            cursor: pointer;
+        }
+        .container {
+            margin-top: 80px;
+            display: flex;
+            width: 100%;
+            padding: 1rem;
+        }
+        .cart-left {
+            width: 50%;
+            padding-right: 1rem;
+        }
+        .cart-right {
+            width: 50%;
+            padding-left: 1rem;
+        }
+        .cart-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #FFF;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #000000;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 1rem;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-details h4 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .cart-item-details p {
+            font-size: 1rem;
+            color: #000000;
+            font-weight: 600;
+        }
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .cart-item-actions button {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-item-actions button:hover {
+            background-color: #B71C1C;
+        }
+        .cart-item-actions span {
+            margin: 0 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .delivery-address-btn {
+            background-color: #DA291C;
+            color: #FFF;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            display: block;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: 2px solid #000000;
+        }
+        .delivery-address-btn:hover {
+            background-color: #B71C1C;
+        }
+        .summary {
+            background: #FFF;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #000000;
+        }
+        .summary h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .summary .totals {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .summary .coupon {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .summary .coupon input {
+            padding: 0.5rem;
+            border: 2px solid #000000;
+            border-radius: 0.5rem;
+            flex-grow: 1;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        .summary .coupon .coupon-message {
+            color: #DC3545;
+            font-size: 0.8rem;
+            display: none;
+            margin-top: 0.25rem;
+        }
+        .summary .coupon button {
+            padding: 0.5rem 1rem;
+            background-color: #DA291C;
+            color: #FFF;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .summary .coupon button:hover {
+            background-color: #B71C1C;
+        }
+        .summary .discount-row {
+            color: #28A745;
+        }
+        .continue-btn {
+            background-color: #DA291C;
+            color: #FFF;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            display: block;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            border: 2px solid #000000;
+        }
+        .continue-btn:hover {
+            background-color: #B71C1C;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #FFF;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .modal .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+        .modal .close-btn:hover {
+            color: #DA291C;
+        }
+        .modal input, .modal select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #000000;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .modal input:focus, .modal select:focus {
+            border-color: #FFC107;
+            outline: none;
+        }
+        .modal .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .modal .checkbox-group input {
+            width: auto;
+            margin: 0;
+        }
+        .modal .add-another {
+            color: #DA291C;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .modal .add-another:hover {
+            color: #B71C1C;
+        }
+        .modal button {
+            background-color: #DA291C;
+            color: #FFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .modal button:hover {
+            background-color: #B71C1C;
+        }
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .payment-content {
+            background-color: #FFF;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        .payment-content .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+        .payment-content .close-btn:hover {
+            color: #DA291C;
+        }
+        .payment-content h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .payment-content input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #000000;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .payment-content input:focus {
+            border-color: #FFC107;
+            outline: none;
+        }
+        .payment-content .card-details {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .payment-content .card-details input {
+            flex: 1;
+        }
+        .payment-content .confirm-btn {
+            background-color: #FFC107;
+            color: #000000;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid #000000;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .payment-content .confirm-btn:hover {
+            background-color: #FFB300;
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .navbar .brand {
+                font-size: 1.2rem;
+            }
+            .container {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+            .cart-left, .cart-right {
+                width: 100%;
+                padding: 0;
+            }
+            .cart-left {
+                margin-bottom: 1rem;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.75rem;
+            }
+            .cart-item img {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 0.5rem;
+            }
+            .cart-item-details {
+                margin-bottom: 0.5rem;
+            }
+            .cart-item-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            .summary .coupon {
+                flex-direction: column;
+            }
+            .summary .coupon input, .summary .coupon button {
+                width: 100%;
+            }
+            .sidebar.open {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand">Mitho Khaja NZ</a>
+        <span class="hamburger" onclick="openSidebar()">☰</span>
+        <div class="nav-links">
+            <a href="index.html">Menu</a>
+            <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-basket"></i><span class="cart-count" id="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <div id="sidebar" class="sidebar">
+        <span class="closebtn" onclick="closeSidebar()">×</span>
+        <a href="index.html">Menu</a>
+        <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-basket"></i> Cart <span class="cart-count" id="sidebar-cart-count">0</span></a>
+    </div>
+
+    <div class="container">
+        <div class="cart-left">
+            <div class="cart-section">
+                <h2>My Jhola</h2>
+                <div id="cart-items"></div>
+                <div id="drink-recommendations" style="display: none;">
+                    <h3 style="font-size: 1.5rem; font-weight: 800; color: #DA291C; margin-top: 1.5rem;">Add a Drink</h3>
+                    <div class="recommended-grid" id="recommended-drinks"></div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-right">
+            <div class="delivery-address-btn" onclick="showDeliveryModal()">+ Add Delivery Address</div>
+            <div class="summary">
+                <h3>Summary</h3>
+                <div class="coupon">
+                    <input type="text" id="coupon-code" placeholder="Enter Coupon Code">
+                    <button onclick="applyCoupon()">Redeem</button>
+                    <div class="coupon-message" id="coupon-message"></div>
+                </div>
+                <div class="totals">
+                    <p>Subtotal</p>
+                    <p id="subtotal">$0.00</p>
+                </div>
+                <div class="totals discount-row" id="discount-row" style="display: none;">
+                    <p>Discount</p>
+                    <p id="discount">$0.00</p>
+                </div>
+                <div class="totals">
+                    <p>Delivery Charge</p>
+                    <p id="delivery-charge">$0.00</p>
+                </div>
+                <div class="totals">
+                    <p>Total</p>
+                    <p id="total">$0.00</p>
+                </div>
+                <button class="continue-btn" onclick="showPaymentModal()">Continue to Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="delivery-modal" class="modal flex">
+        <div class="modal-content">
+            <span class="close-btn" onclick="hideDeliveryModal()">×</span>
+            <h3>Delivery Address</h3>
+            <input type="text" id="delivery-name" placeholder="Full Name" required>
+            <select id="delivery-city" required>
+                <option value="Auckland" selected>Auckland</option>
+            </select>
+            <select id="delivery-suburb" onchange="updateDeliveryCharge()" required>
+                <option value="" disabled selected>Select Suburb</option>
+                <optgroup label="Auckland CBD Suburbs ($2.99)">
+                    <option value="Auckland CBD">Auckland CBD</option>
+                    <option value="Freemans Bay">Freemans Bay</option>
+                    <option value="Ponsonby">Ponsonby</option>
+                    <option value="Newton">Newton</option>
+                    <option value="Eden Terrace">Eden Terrace</option>
+                    <option value="Grafton">Grafton</option>
+                    <option value="Parnell">Parnell</option>
+                    <option value="Newmarket">Newmarket</option>
+                    <option value="Grey Lynn">Grey Lynn</option>
+                    <option value="Kingsland">Kingsland</option>
+                    <option value="Mt Eden">Mt Eden</option>
+                </optgroup>
+                <optgroup label="Neighboring Suburbs ($5.69)">
+                    <option value="New Lynn">New Lynn</option>
+                    <option value="Avondale">Avondale</option>
+                    <option value="Waterview">Waterview</option>
+                    <option value="Point Chevalier">Point Chevalier</option>
+                    <option value="Western Springs">Western Springs</option>
+                    <option value="Morningside">Morningside</option>
+                    <option value="Sandringham">Sandringham</option>
+                    <option value="Mt Albert">Mt Albert</option>
+                    <option value="Mt Roskill">Mt Roskill</option>
+                </optgroup>
+                <optgroup label="Farther Suburbs ($10.00)">
+                    <option value="Other">Other</option>
+                </optgroup>
+            </select>
+            <input type="text" id="delivery-address" placeholder="Address" required>
+            <input type="tel" id="delivery-contact" placeholder="Contact Number" required>
+            <div class="checkbox-group">
+                <input type="checkbox" id="default-address">
+                <label for="default-address">Set as Default Address</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="add-another">
+                <label for="add-another" class="add-another" onclick="addAnotherAddress()">Add Another Address</label>
+            </div>
+            <button onclick="saveAddress()">Save Address</button>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="payment-modal flex">
+        <div class="payment-content">
+            <span class="close-btn" onclick="hidePaymentModal()">×</span>
+            <h3>Payment Details</h3>
+            <input type="text" id="card-number" placeholder="Card Number" required>
+            <div class="card-details">
+                <input type="text" id="expiry-date" placeholder="MM/YY" required>
+                <input type="text" id="cvc" placeholder="CVC" required>
+            </div>
+            <button class="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+        </div>
+    </div>
+
+    <script>
+        const menuData = [
+            { name: "Veg Momo", description: "10 pcs served with chatni", price: 8.50, image: "vegmomo.png", category: "momo" },
+            { name: "Chicken Momo", description: "10 pcs served with chatni", price: 10.50, image: "chickenmomo.png", category: "momo" },
+            { name: "Pork Momo", description: "10 pcs served with chatni", price: 12.00, image: "porkmomo.png", category: "momo" },
+            { name: "Warm Jhol Momo", description: "Momo curry", price: 14.00, image: "warmjholmomo.png", category: "momo" },
+            { name: "Chiso Jhol Momo", description: "Kathmandu style jhol momo", price: 14.50, image: "chisojholmomo.png", category: "momo" },
+            { name: "Chicken Chowmein", description: "", price: 12.00, image: "chickenchowmein.png", category: "chowmein" },
+            { name: "Veg Chowmein", description: "", price: 9.50, image: "vegchowmein.png", category: "chowmein" },
+            { name: "Chicken Chilli", description: "", price: 10.00, image: "chickenchilli.png", category: "other" },
+            { name: "Saadeko Wai Wai", description: "", price: 8.00, image: "saadekowaiwai.png", category: "other" },
+            { name: "Classic Fries", description: "Comes with sauce", price: 4.50, image: "classicfries.png", category: "fries" },
+            { name: "Masala Fries", description: "Has spices and mayo, comes with sauce", price: 5.00, image: "masalafries.png", category: "fries" },
+            { name: "Chicken Wrap", description: "", price: 9.00, image: "chickenwrap.png", category: "wrap" },
+            { name: "Veg Fried Rice", description: "", price: 8.50, image: "vegfriedrice.png", category: "other" },
+            { name: "Chicken Fried Rice", description: "", price: 10.50, image: "chickenfriedrice.png", category: "other" },
+            { name: "Coke 1.5L", description: "Refreshing cola drink", price: 4.50, image: "coke1.5l.png", category: "drink" },
+            { name: "Sprite 1.5L", description: "Refreshing lemon-lime drink", price: 4.50, image: "sprite1.5l.png", category: "drink" },
+            { name: "Coke Can 330ml", description: "Refreshing cola drink", price: 2.50, image: "cokecan330ml.png", category: "drink" },
+            { name: "Sprite Can 330ml", description: "Refreshing lemon-lime drink", price: 2.50, image: "spritecan330ml.png", category: "drink" },
+            { name: "Coke Zero Can 330ml", description: "Zero sugar cola drink", price: 2.50, image: "cokezerocan330ml.png", category: "drink" }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let discount = 0;
+        let deliveryCharge = 0;
+
+        const aucklandCBDSuburbs = ["Auckland CBD", "Freemans Bay", "Ponsonby", "Newton", "Eden Terrace", "Grafton", "Parnell", "Newmarket", "Grey Lynn", "Kingsland", "Mt Eden"];
+        const neighboringSuburbs = ["New Lynn", "Avondale", "Waterview", "Point Chevalier", "Western Springs", "Morningside", "Sandringham", "Mt Albert", "Mt Roskill"];
+
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('open');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const sidebarCartCount = document.getElementById('sidebar-cart-count');
+            cartCount.textContent = cart.length;
+            if (sidebarCartCount) sidebarCartCount.textContent = cart.length;
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            let html = '';
+            cart.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)}</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button onclick="decreaseQuantity(${index})">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="increaseQuantity(${index})">+</button>
+                        </div>
+                    </div>`;
+            });
+            cartItems.innerHTML = html || '<p class="text-center text-gray-500">Your cart is empty.</p>';
+            updateSummary();
+            renderDrinkRecommendations();
+        }
+
+        function increaseQuantity(index) {
+            cart[index].quantity += 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function decreaseQuantity(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function calculateDeliveryCharge(suburb) {
+            if (aucklandCBDSuburbs.includes(suburb)) return 2.99;
+            if (neighboringSuburbs.includes(suburb)) return 5.69;
+            return 10.00;
+        }
+
+        function updateDeliveryCharge() {
+            const suburb = document.getElementById('delivery-suburb').value;
+            deliveryCharge = suburb ? calculateDeliveryCharge(suburb) : 0;
+            document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
+            updateSummary();
+        }
+
+        function applyCoupon() {
+            const couponCode = document.getElementById('coupon-code').value.toUpperCase();
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const couponMessage = document.getElementById('coupon-message');
+            discount = 0;
+            switch (couponCode) {
+                case 'AUCKLAND5':
+                    discount = subtotal * 0.05;
+                    break;
+                case 'GORKHA10':
+                    discount = subtotal * 0.10;
+                    break;
+                case 'LUMBINI24':
+                    discount = subtotal * 0.24;
+                    break;
+                default:
+                    if (couponCode) {
+                        couponMessage.style.display = 'block';
+                        couponMessage.textContent = 'Invalid coupon';
+                        setTimeout(() => { couponMessage.style.display = 'none'; }, 3000);
+                    }
+            }
+            if (discount > 0) couponMessage.style.display = 'none';
+            document.getElementById('discount-row').style.display = discount > 0 ? 'flex' : 'none';
+            document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const discountedSubtotal = subtotal - discount;
+            const total = discountedSubtotal + deliveryCharge;
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+            document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            updateCartCount();
+        }
+
+        function renderDrinkRecommendations() {
+            const recommendedDrinks = document.getElementById('recommended-drinks');
+            const drinkRecommendations = document.getElementById('drink-recommendations');
+            const hasMomo = cart.some(item => item.category === 'momo');
+            const hasChowmein = cart.some(item => item.category === 'chowmein');
+
+            if (hasMomo || hasChowmein) {
+                const drinks = menuData.filter(item => item.category === 'drink');
+                const cokeItems = drinks.filter(item => item.name.toLowerCase().includes('coke'));
+                const otherDrinks = drinks.filter(item => !item.name.toLowerCase().includes('coke'));
+                const recommended = [...cokeItems, ...otherDrinks].filter(item => !cart.some(cartItem => cartItem.name === item.name));
+                let html = '';
+                recommended.forEach(item => {
+                    html += `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <h4>${item.name}</h4>
+                                <p>$${item.price.toFixed(2)}</p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <button onclick='addDrinkToCart(${JSON.stringify(item)})'><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>`;
+                });
+                recommendedDrinks.innerHTML = html || '<p class="text-center text-gray-500">No drinks available.</p>';
+                drinkRecommendations.style.display = 'block';
+            } else {
+                drinkRecommendations.style.display = 'none';
+            }
+        }
+
+        function addDrinkToCart(item) {
+            const existingItem = cart.find(cartItem => cartItem.name === item.name);
+            if (existingItem) existingItem.quantity += 1;
+            else cart.push({ ...item, quantity: 1 });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function showDeliveryModal() {
+            document.getElementById('delivery-modal').style.display = 'flex';
+        }
+
+        function hideDeliveryModal() {
+            document.getElementById('delivery-modal').style.display = 'none';
+        }
+
+        function addAnotherAddress() {
+            alert('Add Another Address functionality to be implemented.');
+        }
+
+        function saveAddress() {
+            const name = document.getElementById('delivery-name').value;
+            const city = document.getElementById('delivery-city').value;
+            const suburb = document.getElementById('delivery-suburb').value;
+            const address = document.getElementById('delivery-address').value;
+            const contact = document.getElementById('delivery-contact').value;
+
+            if (!name || !city || !suburb || !address || !contact) {
+                alert("Please fill in all fields!");
+                return;
+            }
+            updateDeliveryCharge();
+            hideDeliveryModal();
+        }
+
+        function showPaymentModal() {
+            if (!document.getElementById('delivery-suburb').value) {
+                alert("Please add a delivery address first!");
+                return;
+            }
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function hidePaymentModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function confirmOrder() {
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvc = document.getElementById('cvc').value;
+
+            if (!cardNumber || !expiryDate || !cvc) {
+                alert("Please fill in all payment details!");
+                return;
+            }
+
+            const orderId = `#${Math.floor(100 + Math.random() * 900)}`;
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const discountedSubtotal = subtotal - discount;
+
+            const orderDetails = {
+                orderId,
+                customer: {
+                    name: document.getElementById('delivery-name').value,
+                    city: document.getElementById('delivery-city').value,
+                    suburb: document.getElementById('delivery-suburb').value,
+                    address: document.getElementById('delivery-address').value,
+                    contact: document.getElementById('delivery-contact').value
+                },
+                items: cart,
+                subtotal,
+                discount,
+                deliveryCharge,
+                total: discountedSubtotal + deliveryCharge
+            };
+
+            // Prepare data for Google Sheets
+            const orderData = {
+                userId: 'guest', // No authentication, so using 'guest'
+                customerName: orderDetails.customer.name,
+                address: `${orderDetails.customer.address}, ${orderDetails.customer.suburb}, ${orderDetails.customer.city}`,
+                contactNumber: orderDetails.customer.contact,
+                cart: orderDetails.items.map(item => ({
+                    item: item.name,
+                    price: item.price,
+                    quantity: item.quantity
+                })),
+                total: orderDetails.total,
+                timestamp: new Date().toISOString()
+            };
+
+            // Send order to Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbwqdExxXzKAEpUsnzextC23TzMlohTQ4hMcQDsekP8KbvwRmPUBiw0AOsti-P6S2LtfmQ/exec', {
+                method: 'POST',
+                mode: 'no-cors', // Required for Google Apps Script
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(() => {
+                // On success, save order details, clear cart, and redirect
+                localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                hidePaymentModal();
+                alert('Order placed successfully!');
+                window.location.href = 'confirm.html';
+            })
+            .catch(error => {
+                console.error('Error submitting order:', error);
+                alert('Failed to place order. Please try again.');
+            });
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                hideDeliveryModal();
+                hidePaymentModal();
+            }
+        });
+
+        renderCart();
+    </script>
+</body>
+</html>

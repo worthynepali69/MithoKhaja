@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitho Khaja NZ - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F5F5F5;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #FFFFFF;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 1rem;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #DA291C;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #333333;
+            text-decoration: none;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            transform: translateX(5px);
+        }
+        .sidebar a i {
+            margin-right: 0.5rem;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: #DA291C;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            width: calc(100% - 250px);
+            background-color: #F5F5F5;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .dashboard-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #DA291C;
+            text-transform: uppercase;
+        }
+        .dashboard-header .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background-color: #FFFFFF;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #DA291C;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card p {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #DA291C;
+        }
+        .chart-container {
+            background-color: #FFFFFF;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #DA291C;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+        .chart-container h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #DA291C;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .admin-section {
+            background-color: #FFFFFF;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #DA291C;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .admin-section:hover {
+            transform: translateY(-3px);
+        }
+        .admin-section h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #DA291C;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-section h2 i {
+            transition: transform 0.3s ease;
+        }
+        .admin-section h2.collapsed i {
+            transform: rotate(180deg);
+        }
+        .admin-section .section-content {
+            display: block;
+        }
+        .admin-section .section-content.collapsed {
+            display: none;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #CCCCCC;
+            border-radius: 0.5rem;
+            background-color: #F9F9F9;
+            color: #333333;
+            font-size: 0.9rem;
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+        .admin-section form {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .admin-section input, .admin-section select {
+            padding: 0.5rem;
+            border: 1px solid #CCCCCC;
+            border-radius: 0.5rem;
+            background-color: #F9F9F9;
+            color: #333333;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+        .admin-section input:focus, .admin-section select:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+        .admin-section button {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .admin-section button:hover {
+            background-color: #B71C1C;
+            transform: scale(1.02);
+        }
+        .order-list .order-item {
+            background-color: #F9F9F9;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #E0E0E0;
+            transition: background-color 0.3s ease;
+        }
+        .order-item:hover {
+            background-color: #F0F0F0;
+        }
+        .order-item .order-summary {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+            align-items: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .order-item .order-summary span {
+            padding: 0.25rem;
+        }
+        .order-item .order-details {
+            display: none;
+            padding: 0.75rem;
+            background-color: #FFFFFF;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #E0E0E0;
+        }
+        .order-item .order-details.show {
+            display: block;
+        }
+        .order-item .order-details p {
+            margin: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+        .order-item .order-details .status-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .order-item .order-details select {
+            padding: 0.25rem;
+            border: 1px solid #CCCCCC;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .order-item .order-details button {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .order-item .order-details button:hover {
+            background-color: #B71C1C;
+            transform: scale(1.05);
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .menu-item {
+            background-color: #F9F9F9;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid #E0E0E0;
+            position: relative;
+        }
+        .menu-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .menu-item p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .menu-item button {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 0.5rem;
+        }
+        .menu-item button:hover {
+            background-color: #B71C1C;
+            transform: scale(1.05);
+        }
+        .user-list div {
+            background-color: #F9F9F9;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            border: 1px solid #E0E0E0;
+        }
+        .user-list div button {
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .user-list div button:hover {
+            background-color: #B71C1C;
+            transform: scale(1.05);
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #DA291C;
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            display: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid #FFC107;
+            animation: slideInFromBottom 0.5s ease forwards;
+        }
+        .notification.show {
+            display: block;
+        }
+        @keyframes slideInFromBottom {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .hamburger {
+                display: block;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
+            }
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .chart-container {
+                max-width: 100%;
+            }
+            .admin-section h2 {
+                font-size: 1.25rem;
+            }
+            .admin-section input, .admin-section select {
+                font-size: 0.85rem;
+                padding: 0.5rem;
+            }
+            .admin-section button {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .order-item .order-summary {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .order-item .order-details button, .user-list div button {
+                width: 100%;
+                padding: 0.5rem;
+            }
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .menu-item img {
+                height: 80px;
+            }
+            .notification {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <span class="hamburger" onclick="toggleSidebar()">☰</span>
+
+    <div class="sidebar">
+        <div class="brand">MKNZ - Admin</div>
+        <a href="#" onclick="showSection('dashboard')" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" onclick="showSection('orders')"><i class="fas fa-shopping-cart"></i> Orders</a>
+        <a href="#" onclick="showSection('users')"><i class="fas fa-users"></i> Users</a>
+        <a href="#" onclick="showSection('menu')"><i class="fas fa-utensils"></i> Menu</a>
+        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <div class="auth-buttons">
+                <span id="welcome-message">Welcome, Admin</span>
+            </div>
+        </div>
+
+        <div id="dashboard-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Orders</h3>
+                    <p id="total-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Orders</h3>
+                    <p id="pending-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Users</h3>
+                    <p id="total-users">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Menu Items</h3>
+                    <p id="total-menu-items">0</p>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Orders Over Time</h3>
+                <canvas id="orders-chart"></canvas>
+            </div>
+        </div>
+
+        <div id="orders-section" style="display:none;">
+            <div class="admin-section">
+                <h2 onclick="toggleSection(this)">Orders <i class="fas fa-chevron-down"></i></h2>
+                <div class="section-content">
+                    <div class="search-bar">
+                        <input type="text" id="order-search" placeholder="Search Orders..." onkeyup="filterOrders()">
+                    </div>
+                    <div class="order-list" id="order-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="users-section" style="display:none;">
+            <div class="admin-section">
+                <h2 onclick="toggleSection(this)">Manage Users <i class="fas fa-chevron-down"></i></h2>
+                <div class="section-content">
+                    <form id="add-user-form">
+                        <input type="text" id="new-user-id" placeholder="User ID" required>
+                        <input type="password" id="new-user-password" placeholder="Password" required>
+                        <button type="submit">Add User</button>
+                    </form>
+                    <div class="search-bar">
+                        <input type="text" id="user-search" placeholder="Search Users..." onkeyup="filterUsers()">
+                    </div>
+                    <div class="user-list" id="user-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-section" style="display:none;">
+            <div class="admin-section">
+                <h2 onclick="toggleSection(this)">Manage Menu <i class="fas fa-chevron-down"></i></h2>
+                <div class="section-content">
+                    <form id="add-menu-form">
+                        <input type="text" id="new-menu-name" placeholder="Item Name" required>
+                        <input type="text" id="new-menu-desc" placeholder="Description" required>
+                        <input type="number" id="new-menu-price" placeholder="Price" step="0.01" required>
+                        <input type="text" id="new-menu-image" placeholder="Image Filename" required>
+                        <button type="submit">Add Item</button>
+                    </form>
+                    <div class="search-bar">
+                        <input type="text" id="menu-search" placeholder="Search Menu Items..." onkeyup="filterMenu()">
+                    </div>
+                    <div class="menu-grid" id="menu-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { id: "admin", password: "admin123", role: "admin" },
+            { id: "aayush", password: "aayush@123", role: "user" },
+            { id: "ram", password: "ram@123", role: "user" },
+            { id: "sita", password: "sita@123", role: "user" }
+        ];
+        let menuData = JSON.parse(localStorage.getItem('menuData')) || [
+            { name: "Veg Momo", description: "10 pcs served with chatni", price: 8.50, image: "vegmomo.png" },
+            { name: "Chicken Momo", description: "10 pcs served with chatni", price: 10.50, image: "chickenmomo.png" },
+            { name: "Pork Momo", description: "10 pcs served with chatni", price: 12.00, image: "porkmomo.png" },
+            { name: "Buff Momo", description: "10 pcs served with chatni", price: 11.00, image: "buffmomo.png" },
+            { name: "Veg Chowmein", description: "Stir-fried noodles with veggies", price: 9.00, image: "vegchowmein.png" },
+            { name: "Chicken Chowmein", description: "Stir-fried noodles with chicken", price: 11.00, image: "chickenchowmein.png" },
+            { name: "Pork Chowmein", description: "Stir-fried noodles with pork", price: 12.50, image: "porkchowmein.png" },
+            { name: "Buff Chowmein", description: "Stir-fried noodles with buff", price: 11.50, image: "buffchowmein.png" },
+            { name: "Veg Fried Rice", description: "Fried rice with vegetables", price: 8.50, image: "vegfriedrice.png" },
+            { name: "Chicken Fried Rice", description: "Fried rice with chicken", price: 10.50, image: "chickenfriedrice.png" }
+        ];
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        const orderStatuses = ["Order Accepted", "Being Delivered", "Delivered", "Cancelled"];
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            notification.style.animation = 'slideInFromBottom 0.5s ease forwards';
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 500);
+            }, 3000);
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
+            document.querySelector(`.sidebar a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            document.querySelectorAll('.main-content > div').forEach(section => section.style.display = 'none');
+            document.getElementById(`${sectionId}-section`).style.display = 'block';
+            updateSection(sectionId);
+            if (window.innerWidth <= 768) toggleSidebar();
+        }
+
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            element.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        }
+
+        function toggleOrderDetails(orderId) {
+            const details = document.getElementById(`order-details-${orderId}`);
+            details.classList.toggle('show');
+        }
+
+        function updateSection(sectionId) {
+            if (sectionId === 'dashboard') {
+                document.getElementById('total-orders').textContent = orders.length;
+                document.getElementById('pending-orders').textContent = orders.filter(order => order.status !== 'Delivered' && order.status !== 'Cancelled').length;
+                document.getElementById('total-users').textContent = users.length;
+                document.getElementById('total-menu-items').textContent = menuData.length;
+                updateOrdersChart();
+            } else if (sectionId === 'orders') {
+                const orderList = document.getElementById('order-list');
+                orderList.innerHTML = orders.map(order => `
+                    <div class="order-item">
+                        <div class="order-summary" onclick="toggleOrderDetails(${order.id})">
+                            <span>Order #${order.id}</span>
+                            <span>${order.customer.name}</span>
+                            <span>${order.customer.contact}</span>
+                            <span>${order.customer.address}</span>
+                            <span>$${order.total.toFixed(2)}</span>
+                        </div>
+                        <div class="order-details" id="order-details-${order.id}">
+                            ${order.items.map(item => `<p>${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</p>`).join('')}
+                            <div class="status-section">
+                                <label>Status: </label>
+                                <select onchange="updateOrderStatus(${order.id}, this.value)">
+                                    ${orderStatuses.map(status => `
+                                        <option value="${status}" ${order.status === status ? 'selected' : ''}>${status}</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+                            <button onclick="removeOrder(${order.id})">Remove</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else if (sectionId === 'users') {
+                const userList = document.getElementById('user-list');
+                userList.innerHTML = users.map(user => `<div>${user.id} (${user.role}) <button onclick="removeUser('${user.id}')">Remove</button></div>`).join('');
+            } else if (sectionId === 'menu') {
+                const menuGrid = document.getElementById('menu-grid');
+                menuGrid.innerHTML = menuData.map(item => `
+                    <div class="menu-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <p>${item.name}</p>
+                        <button onclick="removeMenuItem('${item.name}')">Remove</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                localStorage.setItem('orders', JSON.stringify(orders));
+                showNotification(`Order #${orderId} status updated to ${newStatus}`);
+                updateSection('orders');
+                updateSection('dashboard');
+            }
+        }
+
+        function filterOrders() {
+            const searchTerm = document.getElementById('order-search').value.toLowerCase();
+            const filteredOrders = orders.filter(order => 
+                order.id.toString().includes(searchTerm) ||
+                order.customer.name.toLowerCase().includes(searchTerm) ||
+                order.customer.contact.toLowerCase().includes(searchTerm) ||
+                order.customer.address.toLowerCase().includes(searchTerm)
+            );
+            const orderList = document.getElementById('order-list');
+            orderList.innerHTML = filteredOrders.map(order => `
+                <div class="order-item">
+                    <div class="order-summary" onclick="toggleOrderDetails(${order.id})">
+                        <span>Order #${order.id}</span>
+                        <span>${order.customer.name}</span>
+                        <span>${order.customer.contact}</span>
+                        <span>${order.customer.address}</span>
+                        <span>$${order.total.toFixed(2)}</span>
+                    </div>
+                    <div class="order-details" id="order-details-${order.id}">
+                        ${order.items.map(item => `<p>${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</p>`).join('')}
+                        <div class="status-section">
+                            <label>Status: </label>
+                            <select onchange="updateOrderStatus(${order.id}, this.value)">
+                                ${orderStatuses.map(status => `
+                                    <option value="${status}" ${order.status === status ? 'selected' : ''}>${status}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        <button onclick="removeOrder(${order.id})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('user-search').value.toLowerCase();
+            const filteredUsers = users.filter(user => user.id.toLowerCase().includes(searchTerm));
+            const userList = document.getElementById('user-list');
+            userList.innerHTML = filteredUsers.map(user => `<div>${user.id} (${user.role}) <button onclick="removeUser('${user.id}')">Remove</button></div>`).join('');
+        }
+
+        function filterMenu() {
+            const searchTerm = document.getElementById('menu-search').value.toLowerCase();
+            const filteredMenu = menuData.filter(item => item.name.toLowerCase().includes(searchTerm));
+            const menuGrid = document.getElementById('menu-grid');
+            menuGrid.innerHTML = filteredMenu.map(item => `
+                <div class="menu-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>${item.name}</p>
+                    <button onclick="removeMenuItem('${item.name}')">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function updateOrdersChart() {
+            const ctx = document.getElementById('orders-chart').getContext('2d');
+            const orderCountsByMonth = Array(12).fill(0);
+            const currentDate = new Date('2025-05-08');
+            orders.forEach(order => {
+                const orderDate = new Date(order.date || '2025-05-08');
+                if (orderDate.getFullYear() === currentDate.getFullYear()) {
+                    const month = orderDate.getMonth();
+                    orderCountsByMonth[month]++;
+                }
+            });
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Orders per Month',
+                        data: orderCountsByMonth,
+                        borderColor: '#DA291C',
+                        backgroundColor: 'rgba(218, 41, 28, 0.2)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.getElementById('add-user-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('new-user-id').value;
+            const password = document.getElementById('new-user-password').value;
+            if (!users.some(u => u.id === id)) {
+                users.push({ id, password, role: 'user' });
+                localStorage.setItem('users', JSON.stringify(users));
+                showNotification('User added successfully!');
+                updateSection('users');
+                this.reset();
+            } else {
+                showNotification('User already exists!');
+            }
+        });
+
+        document.getElementById('add-menu-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('new-menu-name').value;
+            const desc = document.getElementById('new-menu-desc').value;
+            const price = parseFloat(document.getElementById('new-menu-price').value);
+            const image = document.getElementById('new-menu-image').value;
+            if (isNaN(price) || price <= 0) {
+                showNotification('Price must be a positive number!');
+                return;
+            }
+            if (!menuData.some(item => item.name === name)) {
+                menuData.push({ name, description: desc, price, image });
+                localStorage.setItem('menuData', JSON.stringify(menuData));
+                showNotification('Menu item added successfully!');
+                updateSection('menu');
+                this.reset();
+            } else {
+                showNotification('Menu item already exists!');
+            }
+        });
+
+        function removeUser(id) {
+            if (id === 'admin') {
+                showNotification('Cannot remove the admin user!');
+                return;
+            }
+            users = users.filter(u => u.id !== id);
+            localStorage.setItem('users', JSON.stringify(users));
+            updateSection('users');
+            showNotification('User removed!');
+        }
+
+        function removeMenuItem(name) {
+            menuData = menuData.filter(item => item.name !== name);
+            localStorage.setItem('menuData', JSON.stringify(menuData));
+            updateSection('menu');
+            showNotification('Menu item removed!');
+        }
+
+        function removeOrder(id) {
+            orders = orders.filter(order => order.id !== id);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            updateSection('orders');
+            updateSection('dashboard');
+            showNotification('Order removed!');
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('cart');
+            showNotification('Logging out...');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+
+        if (!currentUser || currentUser.role !== 'admin') {
+            showNotification('Access denied. Redirecting to login...');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
+        } else {
+            document.getElementById('welcome-message').textContent = `Welcome, ${currentUser.id}`;
+            showSection('dashboard');
+        }
+    </script>
+</body>
+</html>
