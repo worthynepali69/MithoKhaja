@@ -15,27 +15,27 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             min-height: 100vh;
         }
         .navbar {
             background-color: #DA291C;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             color: #FFC107;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            height: 70px;
+            height: 60px;
         }
         .navbar .brand {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
             color: #FFC107;
             text-decoration: none;
         }
@@ -48,139 +48,131 @@
         .nav-links {
             display: flex;
             align-items: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
         .nav-links a {
             color: #FFC107;
             text-decoration: none;
-            margin: 0 1.5rem;
-            font-size: 1.1rem;
+            margin: 0 1rem;
+            font-size: 1rem;
             font-weight: 600;
-            transition: color 0.3s ease;
         }
         .nav-links a:hover {
             color: #FFFFFF;
         }
         .nav-links .cart-icon {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             position: relative;
         }
-        .nav-links .cart-icon .cart-count {
+        .nav-links .cart-count {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -6px;
+            right: -6px;
             background-color: #FFC107;
             color: #DA291C;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 600;
             border-radius: 50%;
-            padding: 2px 6px;
+            padding: 2px 5px;
         }
         .sidebar {
             height: 100%;
             width: 0;
             position: fixed;
-            top: 70px;
+            top: 60px;
             right: 0;
             background-color: #DA291C;
             overflow-x: hidden;
             transition: 0.3s;
-            padding-top: 20px;
+            padding-top: 15px;
             z-index: 2000;
         }
         .sidebar a {
-            padding: 15px 20px;
+            padding: 10px 15px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #FFC107;
             display: block;
-            transition: 0.3s;
         }
         .sidebar a:hover {
             color: #FFFFFF;
         }
-        .sidebar .cart-icon {
-            display: flex;
-            align-items: center;
-            margin-left: 10px;
-        }
         .sidebar .closebtn {
             position: absolute;
             top: 10px;
-            right: 20px;
+            right: 15px;
             font-size: 1.5rem;
             color: #FFC107;
             cursor: pointer;
         }
+        .sidebar.open {
+            width: 200px;
+        }
         .container {
-            margin-top: 80px;
+            margin-top: 70px;
             display: flex;
             width: 100%;
             padding: 1rem;
+            gap: 1rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .cart-left {
-            width: 50%;
-            padding-right: 1rem;
-        }
-        .cart-right {
-            width: 50%;
-            padding-left: 1rem;
+        .cart-left, .cart-right {
+            flex: 1;
+            padding: 1rem;
         }
         .cart-section h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: #DA291C;
             text-transform: uppercase;
         }
         .cart-item {
             display: flex;
             align-items: center;
-            padding: 1rem;
+            padding: 0.75rem;
             background: #FFF;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: 2px solid #000000;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
         }
         .cart-item img {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
-            margin-right: 1rem;
+            margin-right: 0.75rem;
         }
         .cart-item-details {
-            flex-grow: 1;
+            flex: 1;
         }
         .cart-item-details h4 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
             color: #DA291C;
-            text-transform: uppercase;
         }
         .cart-item-details p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #000000;
-            font-weight: 600;
+            font-weight: 500;
         }
         .cart-item-actions {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.25rem;
         }
         .cart-item-actions button {
             background-color: #DA291C;
             color: #FFFFFF;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
-            width: 35px;
-            height: 35px;
+            font-size: 0.9rem;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -190,23 +182,21 @@
         }
         .cart-item-actions span {
             margin: 0 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 800;
+            font-size: 1rem;
+            font-weight: 700;
         }
         .delivery-address-btn {
             background-color: #DA291C;
             color: #FFF;
-            padding: 0.75rem;
+            padding: 0.5rem;
             border-radius: 0.5rem;
             text-align: center;
-            display: block;
-            margin-bottom: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
-            border: 2px solid #000000;
+            border: 1px solid #000000;
+            margin-bottom: 1rem;
         }
         .delivery-address-btn:hover {
             background-color: #B71C1C;
@@ -214,42 +204,41 @@
         .summary {
             background: #FFF;
             padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: 2px solid #000000;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
         }
         .summary h3 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             color: #DA291C;
             text-transform: uppercase;
         }
         .summary .totals {
             display: flex;
             justify-content: space-between;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
         .summary .coupon {
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             display: flex;
             gap: 0.5rem;
         }
         .summary .coupon input {
             padding: 0.5rem;
-            border: 2px solid #000000;
+            border: 1px solid #E5E7EB;
             border-radius: 0.5rem;
             flex-grow: 1;
-            font-size: 0.9rem;
-            font-weight: 400;
+            font-size: 0.85rem;
         }
         .summary .coupon .coupon-message {
             color: #DC3545;
-            font-size: 0.8rem;
-            display: none;
+            font-size: 0.75rem;
             margin-top: 0.25rem;
+            display: none;
         }
         .summary .coupon button {
             padding: 0.5rem 1rem;
@@ -258,7 +247,7 @@
             border: none;
             border-radius: 0.5rem;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
         }
         .summary .coupon button:hover {
@@ -270,21 +259,26 @@
         .continue-btn {
             background-color: #DA291C;
             color: #FFF;
-            padding: 0.75rem;
+            padding: 0.5rem;
             border-radius: 0.5rem;
             text-align: center;
-            display: block;
             width: 100%;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
             margin-top: 1rem;
-            border: 2px solid #000000;
+            border: 1px solid #000000;
         }
         .continue-btn:hover {
             background-color: #B71C1C;
+        }
+        .error-message {
+            color: #DC3545;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
         }
         .modal {
             display: none;
@@ -300,30 +294,25 @@
         }
         .modal-content {
             background-color: #FFF;
-            padding: 2rem;
-            border-radius: 1rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: relative;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
         .modal h3 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: #DA291C;
             text-transform: uppercase;
         }
         .modal .close-btn {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
+            top: 0.75rem;
+            right: 0.75rem;
+            font-size: 1.25rem;
             color: #333;
             cursor: pointer;
         }
@@ -332,12 +321,11 @@
         }
         .modal input, .modal select {
             width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 2px solid #000000;
+            padding: 0.5rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid #E5E7EB;
             border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            font-size: 0.9rem;
         }
         .modal input:focus, .modal select:focus {
             border-color: #FFC107;
@@ -347,7 +335,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
         .modal .checkbox-group input {
             width: auto;
@@ -364,94 +352,67 @@
         .modal button {
             background-color: #DA291C;
             color: #FFF;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             border: none;
             cursor: pointer;
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s ease;
         }
         .modal button:hover {
             background-color: #B71C1C;
         }
-        .payment-modal {
+        .payment-section {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #FFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
+            max-width: 500px;
+            text-align: center;
+            width: 100%;
+        }
+        .payment-section h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #DA291C;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .payment-section .paypal-logo {
+            width: 80px;
+            margin-bottom: 0.75rem;
+        }
+        .payment-section .success-message {
+            color: #28A745;
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+        .payment-section .error-message {
+            color: #DC3545;
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+        .loading {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
         }
-        .payment-content {
-            background-color: #FFF;
-            padding: 2rem;
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            position: relative;
-            animation: slideIn 0.3s ease;
-        }
-        .payment-content .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            color: #333;
-            cursor: pointer;
-        }
-        .payment-content .close-btn:hover {
-            color: #DA291C;
-        }
-        .payment-content h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: #DA291C;
-            text-transform: uppercase;
-        }
-        .payment-content input {
-            width: 100%;
+        .loading-content {
+            background: #FFF;
             padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 2px solid #000000;
             border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-        .payment-content input:focus {
-            border-color: #FFC107;
-            outline: none;
-        }
-        .payment-content .card-details {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .payment-content .card-details input {
-            flex: 1;
-        }
-        .payment-content .confirm-btn {
-            background-color: #FFC107;
-            color: #000000;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: 2px solid #000000;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1.2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .payment-content .confirm-btn:hover {
-            background-color: #FFB300;
-            transform: scale(1.05);
+            text-align: center;
         }
         @media (max-width: 768px) {
             .navbar .nav-links {
@@ -461,27 +422,24 @@
                 display: block;
             }
             .navbar .brand {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .container {
                 flex-direction: column;
-                padding: 0.5rem;
+                padding: 0.75rem;
+                gap: 0.75rem;
             }
             .cart-left, .cart-right {
-                width: 100%;
-                padding: 0;
-            }
-            .cart-left {
-                margin-bottom: 1rem;
+                padding: 0.75rem;
             }
             .cart-item {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 0.75rem;
+                padding: 0.5rem;
             }
             .cart-item img {
-                width: 60px;
-                height: 60px;
+                width: 50px;
+                height: 50px;
                 margin-bottom: 0.5rem;
             }
             .cart-item-details {
@@ -498,7 +456,10 @@
                 width: 100%;
             }
             .sidebar.open {
-                width: 250px;
+                width: 200px;
+            }
+            .payment-section {
+                padding: 0.75rem;
             }
         }
     </style>
@@ -524,14 +485,14 @@
             <div class="cart-section">
                 <h2>My Jhola</h2>
                 <div id="cart-items"></div>
-                <div id="drink-recommendations" style="display: none;">
-                    <h3 style="font-size: 1.5rem; font-weight: 800; color: #DA291C; margin-top: 1.5rem;">Add a Drink</h3>
+                <div id="drink-recommendations">
+                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #DA291C; margin-top: 1rem;">Add a Drink</h3>
                     <div class="recommended-grid" id="recommended-drinks"></div>
                 </div>
             </div>
         </div>
         <div class="cart-right">
-            <div class="delivery-address-btn" onclick="showDeliveryModal()">+ Add Delivery Address</div>
+            <div id="delivery-address-btn" class="delivery-address-btn" onclick="showDeliveryModal()">+ Add Delivery Address</div>
             <div class="summary">
                 <h3>Summary</h3>
                 <div class="coupon">
@@ -555,12 +516,19 @@
                     <p>Total</p>
                     <p id="total">$0.00</p>
                 </div>
-                <button class="continue-btn" onclick="showPaymentModal()">Continue to Payment</button>
+                <button class="continue-btn" id="proceed-to-payment" onclick="showPaymentSection()">Proceed to Payment</button>
+                <div class="error-message" id="payment-error">Please add a delivery address to confirm order</div>
+            </div>
+            <div class="payment-section" id="payment-section">
+                <h3>Secure Checkout</h3>
+                <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal Logo" class="paypal-logo mx-auto">
+                <div class="paypal-button-container" id="paypal-button-container"></div>
+                <div id="payment-message" class="message"></div>
             </div>
         </div>
     </div>
 
-    <div id="delivery-modal" class="modal flex">
+    <div id="delivery-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="hideDeliveryModal()">×</span>
             <h3>Delivery Address</h3>
@@ -612,311 +580,426 @@
         </div>
     </div>
 
-    <div id="payment-modal" class="payment-modal flex">
-        <div class="payment-content">
-            <span class="close-btn" onclick="hidePaymentModal()">×</span>
-            <h3>Payment Details</h3>
-            <input type="text" id="card-number" placeholder="Card Number" required>
-            <div class="card-details">
-                <input type="text" id="expiry-date" placeholder="MM/YY" required>
-                <input type="text" id="cvc" placeholder="CVC" required>
-            </div>
-            <button class="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <i class="fas fa-spinner fa-spin"></i> Processing...
         </div>
     </div>
 
+    <script src="https://www.paypal.com/sdk/js?client-id=Af1bAfGRhKbrsRnV74OeSZQvgdOx8UKsBRAHjf-tEueYPQnvvGpv3CQ2JN238_h6n-3MyR3mdeuqx0KG&currency=NZD"></script>
     <script>
-        const menuData = [
-            { name: "Veg Momo", description: "10 pcs served with chatni", price: 8.50, image: "vegmomo.png", category: "momo" },
-            { name: "Chicken Momo", description: "10 pcs served with chatni", price: 10.50, image: "chickenmomo.png", category: "momo" },
-            { name: "Pork Momo", description: "10 pcs served with chatni", price: 12.00, image: "porkmomo.png", category: "momo" },
-            { name: "Warm Jhol Momo", description: "Momo curry", price: 14.00, image: "warmjholmomo.png", category: "momo" },
-            { name: "Chiso Jhol Momo", description: "Kathmandu style jhol momo", price: 14.50, image: "chisojholmomo.png", category: "momo" },
-            { name: "Chicken Chowmein", description: "", price: 12.00, image: "chickenchowmein.png", category: "chowmein" },
-            { name: "Veg Chowmein", description: "", price: 9.50, image: "vegchowmein.png", category: "chowmein" },
-            { name: "Chicken Chilli", description: "", price: 10.00, image: "chickenchilli.png", category: "other" },
-            { name: "Saadeko Wai Wai", description: "", price: 8.00, image: "saadekowaiwai.png", category: "other" },
-            { name: "Classic Fries", description: "Comes with sauce", price: 4.50, image: "classicfries.png", category: "fries" },
-            { name: "Masala Fries", description: "Has spices and mayo, comes with sauce", price: 5.00, image: "masalafries.png", category: "fries" },
-            { name: "Chicken Wrap", description: "", price: 9.00, image: "chickenwrap.png", category: "wrap" },
-            { name: "Veg Fried Rice", description: "", price: 8.50, image: "vegfriedrice.png", category: "other" },
-            { name: "Chicken Fried Rice", description: "", price: 10.50, image: "chickenfriedrice.png", category: "other" },
-            { name: "Coke 1.5L", description: "Refreshing cola drink", price: 4.50, image: "coke1.5l.png", category: "drink" },
-            { name: "Sprite 1.5L", description: "Refreshing lemon-lime drink", price: 4.50, image: "sprite1.5l.png", category: "drink" },
-            { name: "Coke Can 330ml", description: "Refreshing cola drink", price: 2.50, image: "cokecan330ml.png", category: "drink" },
-            { name: "Sprite Can 330ml", description: "Refreshing lemon-lime drink", price: 2.50, image: "spritecan330ml.png", category: "drink" },
-            { name: "Coke Zero Can 330ml", description: "Zero sugar cola drink", price: 2.50, image: "cokezerocan330ml.png", category: "drink" }
-        ];
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let discount = 0;
         let deliveryCharge = 0;
+        let isAddressVerified = false;
+        let savedAddresses = JSON.parse(localStorage.getItem('savedAddresses')) || [];
+        let paypalButtons = null;
 
         const aucklandCBDSuburbs = ["Auckland CBD", "Freemans Bay", "Ponsonby", "Newton", "Eden Terrace", "Grafton", "Parnell", "Newmarket", "Grey Lynn", "Kingsland", "Mt Eden"];
         const neighboringSuburbs = ["New Lynn", "Avondale", "Waterview", "Point Chevalier", "Western Springs", "Morningside", "Sandringham", "Mt Albert", "Mt Roskill"];
+        const drinks = [
+            { name: "Coke Can 330ml", price: 2.50, image: "cokecan330ml.png", category: "Drinks" },
+            { name: "Sprite Can 330ml", price: 2.50, image: "spritecan330ml.png", category: "Drinks" },
+            { name: "Coke Zero Can 330ml", price: 2.50, image: "cokezerocan330ml.png", category: "Drinks" }
+        ];
 
-        function openSidebar() {
+        window.openSidebar = function() {
             document.getElementById('sidebar').classList.add('open');
-        }
+        };
 
-        function closeSidebar() {
+        window.closeSidebar = function() {
             document.getElementById('sidebar').classList.remove('open');
-        }
+        };
+
+        window.updateQuantity = function(index, change) {
+            try {
+                if (cart[index]) {
+                    if (change === -1 && cart[index].quantity > 1) {
+                        cart[index].quantity -= 1;
+                    } else if (change === 1) {
+                        cart[index].quantity += 1;
+                    } else if (change === 0) {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+            } catch (error) {
+                console.error('Error in updateQuantity:', error);
+            }
+        };
+
+        window.addToCart = function(item) {
+            try {
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ ...item, quantity: 1 });
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            } catch (error) {
+                console.error('Error in addToCart:', error);
+            }
+        };
 
         function updateCartCount() {
-            const cartCount = document.getElementById('cart-count');
-            const sidebarCartCount = document.getElementById('sidebar-cart-count');
-            cartCount.textContent = cart.length;
-            if (sidebarCartCount) sidebarCartCount.textContent = cart.length;
+            try {
+                const cartCount = document.getElementById('cart-count');
+                const sidebarCartCount = document.getElementById('sidebar-cart-count');
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = total;
+                if (sidebarCartCount) sidebarCartCount.textContent = total;
+            } catch (error) {
+                console.error('Error in updateCartCount:', error);
+            }
         }
 
         function renderCart() {
-            const cartItems = document.getElementById('cart-items');
-            let html = '';
-            cart.forEach((item, index) => {
-                html += `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}">
-                        <div class="cart-item-details">
-                            <h4>${item.name}</h4>
-                            <p>$${item.price.toFixed(2)}</p>
-                        </div>
-                        <div class="cart-item-actions">
-                            <button onclick="decreaseQuantity(${index})">-</button>
-                            <span>${item.quantity}</span>
-                            <button onclick="increaseQuantity(${index})">+</button>
-                        </div>
-                    </div>`;
-            });
-            cartItems.innerHTML = html || '<p class="text-center text-gray-500">Your cart is empty.</p>';
-            updateSummary();
-            renderDrinkRecommendations();
-        }
-
-        function increaseQuantity(index) {
-            cart[index].quantity += 1;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        }
-
-        function decreaseQuantity(index) {
-            if (cart[index].quantity > 1) {
-                cart[index].quantity -= 1;
-            } else {
-                cart.splice(index, 1);
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        }
-
-        function calculateDeliveryCharge(suburb) {
-            if (aucklandCBDSuburbs.includes(suburb)) return 2.99;
-            if (neighboringSuburbs.includes(suburb)) return 5.69;
-            return 10.00;
-        }
-
-        function updateDeliveryCharge() {
-            const suburb = document.getElementById('delivery-suburb').value;
-            deliveryCharge = suburb ? calculateDeliveryCharge(suburb) : 0;
-            document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
-            updateSummary();
-        }
-
-        function applyCoupon() {
-            const couponCode = document.getElementById('coupon-code').value.toUpperCase();
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const couponMessage = document.getElementById('coupon-message');
-            discount = 0;
-            switch (couponCode) {
-                case 'AUCKLAND5':
-                    discount = subtotal * 0.05;
-                    break;
-                case 'GORKHA10':
-                    discount = subtotal * 0.10;
-                    break;
-                case 'LUMBINI24':
-                    discount = subtotal * 0.24;
-                    break;
-                default:
-                    if (couponCode) {
-                        couponMessage.style.display = 'block';
-                        couponMessage.textContent = 'Invalid coupon';
-                        setTimeout(() => { couponMessage.style.display = 'none'; }, 3000);
-                    }
-            }
-            if (discount > 0) couponMessage.style.display = 'none';
-            document.getElementById('discount-row').style.display = discount > 0 ? 'flex' : 'none';
-            document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
-            updateSummary();
-        }
-
-        function updateSummary() {
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const discountedSubtotal = subtotal - discount;
-            const total = discountedSubtotal + deliveryCharge;
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
-            document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-            updateCartCount();
-        }
-
-        function renderDrinkRecommendations() {
-            const recommendedDrinks = document.getElementById('recommended-drinks');
-            const drinkRecommendations = document.getElementById('drink-recommendations');
-            const hasMomo = cart.some(item => item.category === 'momo');
-            const hasChowmein = cart.some(item => item.category === 'chowmein');
-
-            if (hasMomo || hasChowmein) {
-                const drinks = menuData.filter(item => item.category === 'drink');
-                const cokeItems = drinks.filter(item => item.name.toLowerCase().includes('coke'));
-                const otherDrinks = drinks.filter(item => !item.name.toLowerCase().includes('coke'));
-                const recommended = [...cokeItems, ...otherDrinks].filter(item => !cart.some(cartItem => cartItem.name === item.name));
-                let html = '';
-                recommended.forEach(item => {
-                    html += `
+            try {
+                const cartItems = document.getElementById('cart-items');
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p class="text-center text-gray-500">Your cart is empty.</p>';
+                    document.getElementById('drink-recommendations').style.display = 'none';
+                } else {
+                    cartItems.innerHTML = cart.map((item, index) => `
                         <div class="cart-item">
-                            <img src="${item.image}" alt="${item.name}">
+                            <img src="${item.image || 'placeholder.png'}" alt="${item.name}">
                             <div class="cart-item-details">
                                 <h4>${item.name}</h4>
                                 <p>$${item.price.toFixed(2)}</p>
                             </div>
                             <div class="cart-item-actions">
-                                <button onclick='addDrinkToCart(${JSON.stringify(item)})'><i class="fas fa-plus"></i></button>
+                                <button onclick="updateQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)">+</button>
+                                <button onclick="updateQuantity(${index}, 0)" class="text-red-500"><i class="fas fa-trash"></i></button>
                             </div>
-                        </div>`;
-                });
-                recommendedDrinks.innerHTML = html || '<p class="text-center text-gray-500">No drinks available.</p>';
-                drinkRecommendations.style.display = 'block';
-            } else {
-                drinkRecommendations.style.display = 'none';
+                        </div>
+                    `).join('');
+                    document.getElementById('drink-recommendations').style.display = 'block';
+                }
+                renderRecommendations();
+                updateSummary();
+            } catch (error) {
+                console.error('Error in renderCart:', error);
             }
         }
 
-        function addDrinkToCart(item) {
-            const existingItem = cart.find(cartItem => cartItem.name === item.name);
-            if (existingItem) existingItem.quantity += 1;
-            else cart.push({ ...item, quantity: 1 });
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        }
-
-        function showDeliveryModal() {
-            document.getElementById('delivery-modal').style.display = 'flex';
-        }
-
-        function hideDeliveryModal() {
-            document.getElementById('delivery-modal').style.display = 'none';
-        }
-
-        function addAnotherAddress() {
-            alert('Add Another Address functionality to be implemented.');
-        }
-
-        function saveAddress() {
-            const name = document.getElementById('delivery-name').value;
-            const city = document.getElementById('delivery-city').value;
-            const suburb = document.getElementById('delivery-suburb').value;
-            const address = document.getElementById('delivery-address').value;
-            const contact = document.getElementById('delivery-contact').value;
-
-            if (!name || !city || !suburb || !address || !contact) {
-                alert("Please fill in all fields!");
-                return;
+        function renderRecommendations() {
+            try {
+                const recommendedDrinks = document.getElementById('recommended-drinks');
+                recommendedDrinks.innerHTML = drinks.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image || 'placeholder.png'}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)}</p>
+                        </div>
+                        <button class="cart-item-actions" onclick="addToCart(drinks[${index}])"><i class="fas fa-shopping-bag"></i> Add</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error in renderRecommendations:', error);
             }
-            updateDeliveryCharge();
-            hideDeliveryModal();
         }
 
-        function showPaymentModal() {
-            if (!document.getElementById('delivery-suburb').value) {
-                alert("Please add a delivery address first!");
-                return;
+        function calculateDeliveryCharge(suburb) {
+            try {
+                if (aucklandCBDSuburbs.includes(suburb)) return 2.99;
+                if (neighboringSuburbs.includes(suburb)) return 5.69;
+                return 10.00;
+            } catch (error) {
+                console.error('Error in calculateDeliveryCharge:', error);
+                return 0;
             }
-            document.getElementById('payment-modal').style.display = 'flex';
         }
 
-        function hidePaymentModal() {
-            document.getElementById('payment-modal').style.display = 'none';
-        }
-
-        function confirmOrder() {
-            const cardNumber = document.getElementById('card-number').value;
-            const expiryDate = document.getElementById('expiry-date').value;
-            const cvc = document.getElementById('cvc').value;
-
-            if (!cardNumber || !expiryDate || !cvc) {
-                alert("Please fill in all payment details!");
-                return;
+        window.updateDeliveryCharge = function() {
+            try {
+                const suburb = document.getElementById('delivery-suburb').value;
+                const couponCode = document.getElementById('coupon-code').value.toUpperCase();
+                deliveryCharge = (couponCode === 'PALPALIKHAJA') ? 0 : suburb ? calculateDeliveryCharge(suburb) : 0;
+                document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
+                updateSummary();
+            } catch (error) {
+                console.error('Error in updateDeliveryCharge:', error);
             }
+        };
 
-            const orderId = `#${Math.floor(100 + Math.random() * 900)}`;
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const discountedSubtotal = subtotal - discount;
+        window.applyCoupon = function() {
+            try {
+                const couponCode = document.getElementById('coupon-code').value.toUpperCase();
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const couponMessage = document.getElementById('coupon-message');
+                discount = 0;
+                deliveryCharge = document.getElementById('delivery-suburb').value ? calculateDeliveryCharge(document.getElementById('delivery-suburb').value) : 0;
+                switch (couponCode) {
+                    case 'AUCKLAND5':
+                        discount = subtotal * 0.05;
+                        break;
+                    case 'GORKHA10':
+                        discount = subtotal * 0.10;
+                        break;
+                    case 'LUMBINI24':
+                        discount = subtotal * 0.24;
+                        break;
+                    case 'PALPALIKHAJA':
+                        discount = subtotal * 0.50;
+                        deliveryCharge = 0;
+                        couponMessage.style.display = 'block';
+                        couponMessage.textContent = 'Coupon applied: 50% off and free delivery!';
+                        couponMessage.style.color = '#28A745';
+                        setTimeout(() => { couponMessage.style.display = 'none'; }, 3000);
+                        break;
+                    default:
+                        if (couponCode) {
+                            couponMessage.style.display = 'block';
+                            couponMessage.textContent = 'Invalid coupon code';
+                            couponMessage.style.color = '#DC3545';
+                            setTimeout(() => { couponMessage.style.display = 'none'; }, 3000);
+                        }
+                        break;
+                }
+                document.getElementById('discount-row').style.display = discount > 0 ? 'flex' : 'none';
+                document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+                document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
+                updateSummary();
+            } catch (error) {
+                console.error('Error in applyCoupon:', error);
+            }
+        };
 
-            const orderDetails = {
-                orderId,
-                customer: {
-                    name: document.getElementById('delivery-name').value,
-                    city: document.getElementById('delivery-city').value,
-                    suburb: document.getElementById('delivery-suburb').value,
-                    address: document.getElementById('delivery-address').value,
-                    contact: document.getElementById('delivery-contact').value
-                },
-                items: cart,
-                subtotal,
-                discount,
-                deliveryCharge,
-                total: discountedSubtotal + deliveryCharge
-            };
-
-            // Prepare data for Google Sheets
-            const orderData = {
-                userId: 'guest', // No authentication, so using 'guest'
-                customerName: orderDetails.customer.name,
-                address: `${orderDetails.customer.address}, ${orderDetails.customer.suburb}, ${orderDetails.customer.city}`,
-                contactNumber: orderDetails.customer.contact,
-                cart: orderDetails.items.map(item => ({
-                    item: item.name,
-                    price: item.price,
-                    quantity: item.quantity
-                })),
-                total: orderDetails.total,
-                timestamp: new Date().toISOString()
-            };
-
-            // Send order to Google Sheets
-            fetch('https://script.google.com/macros/s/AKfycbwqdExxXzKAEpUsnzextC23TzMlohTQ4hMcQDsekP8KbvwRmPUBiw0AOsti-P6S2LtfmQ/exec', {
-                method: 'POST',
-                mode: 'no-cors', // Required for Google Apps Script
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(() => {
-                // On success, save order details, clear cart, and redirect
-                localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-                cart = [];
-                localStorage.setItem('cart', JSON.stringify(cart));
-                hidePaymentModal();
-                alert('Order placed successfully!');
-                window.location.href = 'confirm.html';
-            })
-            .catch(error => {
-                console.error('Error submitting order:', error);
-                alert('Failed to place order. Please try again.');
-            });
+        function updateSummary() {
+            try {
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const discountedSubtotal = subtotal - discount;
+                const total = discountedSubtotal + deliveryCharge;
+                document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+                document.getElementById('delivery-charge').textContent = `$${deliveryCharge.toFixed(2)}`;
+                document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+                updateCartCount();
+                if (paypalButtons && typeof paypalButtons.close === 'function') {
+                    paypalButtons.close();
+                }
+                if (total > 0 && isAddressVerified) {
+                    initializePayPalButton(total.toFixed(2));
+                }
+            } catch (error) {
+                console.error('Error in updateSummary:', error);
+            }
         }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
+        window.showDeliveryModal = function() {
+            try {
+                document.getElementById('delivery-modal').style.display = 'flex';
+                if (savedAddresses.length > 0) {
+                    const suburbSelect = document.getElementById('delivery-suburb');
+                    savedAddresses.forEach(addr => {
+                        const option = document.createElement('option');
+                        option.value = addr.suburb;
+                        option.textContent = `${addr.name} - ${addr.suburb}, ${addr.address}`;
+                        suburbSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error in showDeliveryModal:', error);
+            }
+        };
+
+        window.hideDeliveryModal = function() {
+            try {
+                document.getElementById('delivery-modal').style.display = 'none';
+                document.getElementById('delivery-suburb').innerHTML = `
+                    <option value="" disabled selected>Select Suburb</option>
+                    <optgroup label="Auckland CBD Suburbs ($2.99)">
+                        <option value="Auckland CBD">Auckland CBD</option>
+                        <option value="Freemans Bay">Freemans Bay</option>
+                        <option value="Ponsonby">Ponsonby</option>
+                        <option value="Newton">Newton</option>
+                        <option value="Eden Terrace">Eden Terrace</option>
+                        <option value="Grafton">Grafton</option>
+                        <option value="Parnell">Parnell</option>
+                        <option value="Newmarket">Newmarket</option>
+                        <option value="Grey Lynn">Grey Lynn</option>
+                        <option value="Kingsland">Kingsland</option>
+                        <option value="Mt Eden">Mt Eden</option>
+                    </optgroup>
+                    <optgroup label="Neighboring Suburbs ($5.69)">
+                        <option value="New Lynn">New Lynn</option>
+                        <option value="Avondale">Avondale</option>
+                        <option value="Waterview">Waterview</option>
+                        <option value="Point Chevalier">Point Chevalier</option>
+                        <option value="Western Springs">Western Springs</option>
+                        <option value="Morningside">Morningside</option>
+                        <option value="Sandringham">Sandringham</option>
+                        <option value="Mt Albert">Mt Albert</option>
+                        <option value="Mt Roskill">Mt Roskill</option>
+                    </optgroup>
+                    <optgroup label="Farther Suburbs ($10.00)">
+                        <option value="Other">Other</option>
+                    </optgroup>`;
+            } catch (error) {
+                console.error('Error in hideDeliveryModal:', error);
+            }
+        };
+
+        window.addAnotherAddress = function() {
+            try {
+                const name = document.getElementById('delivery-name').value;
+                const city = document.getElementById('delivery-city').value;
+                const suburb = document.getElementById('delivery-suburb').value;
+                const address = document.getElementById('delivery-address').value;
+                const contact = document.getElementById('delivery-contact').value;
+                if (name && city && suburb && address && contact) {
+                    savedAddresses.push({ name, city, suburb, address, contact });
+                    localStorage.setItem('savedAddresses', JSON.stringify(savedAddresses));
+                    alert('Address saved! You can select it next time.');
+                    document.getElementById('delivery-name').value = '';
+                    document.getElementById('delivery-address').value = '';
+                    document.getElementById('delivery-contact').value = '';
+                } else {
+                    alert('Please fill all fields to save another address.');
+                }
+            } catch (error) {
+                console.error('Error in addAnotherAddress:', error);
+            }
+        };
+
+        window.saveAddress = function() {
+            try {
+                const name = document.getElementById('delivery-name').value;
+                const city = document.getElementById('delivery-city').value;
+                const suburb = document.getElementById('delivery-suburb').value;
+                const address = document.getElementById('delivery-address').value;
+                const contact = document.getElementById('delivery-contact').value;
+
+                if (!name || !city || !suburb || !address || !contact) {
+                    alert("Please fill in all fields!");
+                    return;
+                }
+                if (document.getElementById('default-address').checked) {
+                    localStorage.setItem('defaultAddress', JSON.stringify({ name, city, suburb, address, contact }));
+                }
+                isAddressVerified = true;
+                updateDeliveryCharge();
                 hideDeliveryModal();
-                hidePaymentModal();
+                updateSummary();
+            } catch (error) {
+                console.error('Error in saveAddress:', error);
             }
-        });
+        };
 
-        renderCart();
+        window.showPaymentSection = function() {
+            try {
+                if (!isAddressVerified) {
+                    const errorMessage = document.getElementById('payment-error');
+                    errorMessage.style.display = 'block';
+                    setTimeout(() => { errorMessage.style.display = 'none'; }, 3000);
+                    return;
+                }
+                document.getElementById('payment-section').style.display = 'block';
+            } catch (error) {
+                console.error('Error in showPaymentSection:', error);
+            }
+        };
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function initializePayPalButton(total) {
+            try {
+                if (paypalButtons && typeof paypalButtons.close === 'function') {
+                    paypalButtons.close();
+                }
+                paypalButtons = paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: total,
+                                    currency_code: 'NZD'
+                                }
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        showLoading();
+                        return actions.order.capture().then(function(details) {
+                            hideLoading();
+                            const paymentMessage = document.getElementById('payment-message');
+                            paymentMessage.textContent = 'Payment successful! Order confirmed.';
+                            paymentMessage.className = 'success-message';
+                            sendToGoogleSheets(details);
+                            cart = [];
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            setTimeout(() => {
+                                window.location.href = 'confirm.html';
+                            }, 2000);
+                        });
+                    },
+                    onError: function(err) {
+                        hideLoading();
+                        const paymentMessage = document.getElementById('payment-message');
+                        paymentMessage.textContent = 'Payment failed. Please try again.';
+                        paymentMessage.className = 'error-message';
+                        console.error('PayPal Error:', err);
+                    }
+                });
+                paypalButtons.render('#paypal-button-container');
+            } catch (error) {
+                console.error('Error in initializePayPalButton:', error);
+            }
+        }
+
+        function sendToGoogleSheets(paymentDetails) {
+            try {
+                const orderData = {
+                    timestamp: new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' }),
+                    items: cart.map(item => `${item.name} x${item.quantity} @ $${item.price.toFixed(2)}`).join(', '),
+                    subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
+                    discount: discount.toFixed(2),
+                    deliveryCharge: deliveryCharge.toFixed(2),
+                    total: (cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) - discount + deliveryCharge).toFixed(2),
+                    name: document.getElementById('delivery-name').value || 'N/A',
+                    city: document.getElementById('delivery-city').value || 'N/A',
+                    suburb: document.getElementById('delivery-suburb').value || 'N/A',
+                    address: document.getElementById('delivery-address').value || 'N/A',
+                    contact: document.getElementById('delivery-contact').value || 'N/A',
+                    paymentId: paymentDetails.id || 'N/A'
+                };
+                fetch('https://script.google.com/macros/s/AKfycbyXkT53kLhcsT-ez2d2M4aY9dLjMMDAuDeLfgT-d68fogWmG-3rLzBpJp-CuCXfnn0nxA/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                }).then(() => {
+                    console.log('Order data sent to Google Sheets');
+                }).catch(error => {
+                    console.error('Error sending to Google Sheets:', error);
+                });
+            } catch (error) {
+                console.error('Error in sendToGoogleSheets:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart and render
+            if (!localStorage.getItem('cart') || JSON.parse(localStorage.getItem('cart')).length === 0) {
+                localStorage.setItem('cart', JSON.stringify([{ name: "Veg Momo", price: 8.50, quantity: 1, image: "vegmomo.png", category: "Momo" }]));
+                cart = JSON.parse(localStorage.getItem('cart'));
+            }
+            renderCart();
+        });
     </script>
 </body>
 </html>
