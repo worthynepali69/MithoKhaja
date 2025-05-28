@@ -22,7 +22,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
@@ -44,7 +44,7 @@
         .navbar .nav-links a {
             color: #FFC107;
             text-decoration: none;
-            margin: 0 1.5rem;
+            margin-left: 1.5rem;
             font-size: 1.1rem;
             font-weight: 600;
             transition: color 0.3s ease;
@@ -67,55 +67,34 @@
             border-radius: 50%;
             padding: 2px 6px;
         }
-        .navbar .auth-buttons {
-            display: flex;
-            align-items: center;
-        }
-        .btn-auth {
-            background-color: #FFC107;
-            color: #000000;
-            padding: 0.5rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-left: 1rem;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            border: 1px solid #000000;
-        }
-        .btn-auth:hover {
-            background-color: #FFB300;
-            transform: scale(1.05);
-        }
         .filter-search-container {
             width: 100%;
-            max-width: 600px;
-            margin: 5rem auto 2rem;
+            max-width: 800px;
+            margin: 5rem auto 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
+            gap: 1.5rem;
+            padding: 0 1rem;
         }
         .search-bar {
-            flex: 1;
             display: flex;
             align-items: center;
-            min-width: 200px;
+            width: 100%;
+            max-width: 500px;
         }
         .search-bar input {
             width: 100%;
-            padding: 0.5rem;
+            padding: 0.75rem;
             border: 2px solid #000000;
             border-radius: 0.5rem 0 0 0.5rem;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 400;
         }
         .search-bar button {
             background-color: #DA291C;
             color: #FFFFFF;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0 0.5rem 0.5rem 0;
             border: none;
             cursor: pointer;
@@ -126,20 +105,21 @@
         }
         .category-filter {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
         }
         .category-btn {
             background-color: #FFC107;
             color: #DA291C;
-            padding: 0.4rem 0.8rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
-            font-size: 0.8rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease;
             border: 1px solid #000000;
+            white-space: nowrap;
         }
         .category-btn.active {
             background-color: #DA291C;
@@ -150,34 +130,33 @@
         }
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 1.5rem;
-            padding: 0 2rem 2rem;
-            margin-top: 1rem;
+            padding: 0 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .menu-item {
             background-color: #FFFFFF;
             padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 380px;
+            border: 2px solid #000000;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            border: 2px solid #000000;
+            align-items: center;
         }
         .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
         }
         .menu-item img {
             width: 100%;
-            height: 150px;
+            height: auto;
+            max-height: 180px;
             object-fit: contain;
-            border-radius: 0.75rem;
-            margin-bottom: 0.5rem;
-            loading: lazy;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
         }
         .menu-item h4 {
             font-size: 1.1rem;
@@ -185,19 +164,21 @@
             margin-bottom: 0.5rem;
             color: #DA291C;
             text-transform: uppercase;
+            text-align: center;
         }
         .menu-item p {
             font-size: 0.85rem;
             color: #000000;
             margin-bottom: 0.5rem;
+            text-align: center;
             flex-grow: 1;
-            font-weight: 400;
         }
         .menu-item .price {
             font-size: 1rem;
             font-weight: 600;
             color: #000000;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-align: center;
         }
         .btn-jhola {
             background-color: #FFC107;
@@ -205,102 +186,18 @@
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             font-size: 0.9rem;
+            width: 100%;
         }
         .btn-jhola i {
-            margin-right: 0.5rem;
+            margin-right: 0.25rem;
         }
         .btn-jhola:hover {
             background-color: #FFB300;
-            transform: scale(1.05);
-        }
-        .btn-order {
-            background-color: #DA291C;
-            color: #FFFFFF;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .btn-order:hover {
-            background-color: #B71C1C;
-            transform: scale(1.05);
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #FFFFFF;
-            padding: 2rem;
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            position: relative;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .modal h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: #DA291C;
-            text-align: center;
-        }
-        .modal input {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 2px solid #000000;
-            border-radius: 0.5rem;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-        .modal input:focus {
-            border-color: #FFC107;
-            outline: none;
-        }
-        .modal button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .modal .btn-submit {
-            background-color: #DA291C;
-            color: #FFFFFF;
-        }
-        .modal .btn-submit:hover {
-            background-color: #B71C1C;
-            transform: scale(1.05);
-        }
-        .modal .btn-cancel {
-            background-color: #000000;
-            color: #FFFFFF;
-        }
-        .modal .btn-cancel:hover {
-            background-color: #333333;
-            transform: scale(1.05);
         }
         .notification {
             position: fixed;
@@ -308,12 +205,12 @@
             right: 20px;
             background-color: #DA291C;
             color: #FFC107;
-            padding: 1rem 1.5rem;
+            padding: 0.75rem 1rem;
             border-radius: 0.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             z-index: 2000;
             display: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             border: 2px solid #000000;
             animation: slideInFromTop 0.5s ease forwards;
@@ -338,13 +235,13 @@
             background-color: #DA291C;
             overflow-x: hidden;
             transition: 0.3s;
-            padding-top: 20px;
+            padding-top: 15px;
             z-index: 2000;
         }
         .sidebar a {
-            padding: 15px 20px;
+            padding: 12px 15px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #FFC107;
             display: block;
             transition: 0.3s;
@@ -355,15 +252,18 @@
         .sidebar .cart-icon {
             display: flex;
             align-items: center;
-            margin-left: 10px;
+            margin-left: 5px;
         }
         .sidebar .closebtn {
             position: absolute;
             top: 10px;
-            right: 20px;
-            font-size: 1.5rem;
+            right: 15px;
+            font-size: 1.3rem;
             color: #FFC107;
             cursor: pointer;
+        }
+        .sidebar.open {
+            width: 250px;
         }
         .hamburger {
             font-size: 1.5rem;
@@ -379,9 +279,9 @@
             background-color: #FFC107;
             color: #000000;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -392,7 +292,7 @@
             transform: scale(1.1);
         }
         .floating-cart i {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
         .floating-cart .cart-count {
             position: absolute;
@@ -400,29 +300,81 @@
             right: -5px;
             background-color: #DA291C;
             color: #FFC107;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             border-radius: 50%;
-            padding: 2px 6px;
+            padding: 1px 4px;
         }
         @media (max-width: 768px) {
-            .navbar .nav-links, .navbar .auth-buttons {
+            .navbar .nav-links {
                 display: none;
             }
             .hamburger {
                 display: block;
             }
             .navbar .brand {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             .filter-search-container {
-                max-width: 300px;
+                max-width: 100%;
+                margin: 4.5rem auto 1rem;
+                padding: 0 0.75rem;
+            }
+            .search-bar {
+                max-width: 100%;
+            }
+            .category-filter {
+                flex-direction: row;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 1rem;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                scrollbar-width: thin;
+                scrollbar-color: #DA291C #FFFFFF;
+            }
+            .category-filter::-webkit-scrollbar {
+                height: 0.5rem;
+            }
+            .category-filter::-webkit-scrollbar-track {
+                background: #FFFFFF;
+            }
+            .category-filter::-webkit-scrollbar-thumb {
+                background-color: #DA291C;
+                border-radius: 0.25rem;
+                border: 2px solid #FFFFFF;
+            }
+            .category-btn {
+                flex: 0 0 auto;
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                white-space: nowrap;
+                min-width: 80px;
             }
             .menu-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 0.75rem;
             }
-            .sidebar.open {
-                width: 250px;
+            .menu-item {
+                padding: 0.75rem;
+                width: 100%;
+            }
+            .menu-item img {
+                max-height: 140px;
+            }
+            .menu-item h4 {
+                font-size: 1rem;
+            }
+            .menu-item p {
+                font-size: 0.8rem;
+            }
+            .menu-item .price {
+                font-size: 0.9rem;
+            }
+            .btn-jhola {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
             }
             .floating-cart {
                 display: flex;
@@ -432,70 +384,40 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.html" class="brand">Mitho Khaja NZ</a>
+        <a href="index.html" class="brand">MITHO KHAJA NZ</a>
         <span class="hamburger" onclick="openSidebar()">☰</span>
         <div class="nav-links">
             <a href="#" onclick="showTab('menu')">Menu</a>
             <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-basket"></i><span class="cart-count" id="cart-count">0</span></a>
         </div>
-        <div class="auth-buttons"></div>
     </nav>
 
-    <div id="sidebar" class="sidebar">
+    <div id="sidebar" class="sidebar" onclick="event.stopPropagation(); closeSidebarIfClickInside(event)">
         <span class="closebtn" onclick="closeSidebar()">×</span>
-        <a href="#" onclick="showTab('menu')">Menu</a>
-        <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-basket"></i> Cart <span class="cart-count" id="sidebar-cart-count">0</span></a>
-        <div id="sidebar-auth"></div>
+        <a href="#" onclick="showTab('menu'); closeSidebar();">Menu</a>
+        <a href="cart.html" class="cart-icon" onclick="closeSidebar();"><i class="fas fa-shopping-basket"></i> Cart <span class="cart-count" id="sidebar-cart-count">0</span></a>
     </div>
 
     <div id="notification" class="notification">
         Item Added to Jhola!
     </div>
 
-    <div id="login-modal" class="modal flex">
-        <div class="modal-content">
-            <h2>Login</h2>
-            <input type="text" id="login-id" placeholder="ID" required>
-            <input type="password" id="login-password" placeholder="Password" required>
-            <p id="login-error" class="text-red-500 mb-2 hidden">Invalid credentials</p>
-            <div class="flex justify-end space-x-2">
-                <button onclick="hideLogin()" class="btn-cancel">Cancel</button>
-                <button onclick="handleLogin()" class="btn-submit">Login</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="signup-modal" class="modal flex">
-        <div class="modal-content">
-            <h2>Signup</h2>
-            <input type="text" id="signup-id" placeholder="ID" required>
-            <input type="password" id="signup-password" placeholder="Password" required>
-            <p id="signup-error" class="text-red-500 mb-2 hidden">User already exists</p>
-            <div class="flex justify-end space-x-2">
-                <button onclick="hideSignup()" class="btn-cancel">Cancel</button>
-                <button onclick="handleSignup()" class="btn-submit">Signup</button>
-            </div>
-        </div>
-    </div>
-
     <div id="menu-tab" class="tab-content active">
-        <div class="py-6 px-4 md:px-8">
-            <div class="filter-search-container">
-                <div class="search-bar">
-                    <input type="text" id="search-bar" placeholder="Search menu items..." onkeyup="searchMenu()">
-                    <button onclick="searchMenu()"><i class="fas fa-search"></i></button>
-                </div>
-                <div class="category-filter">
-                    <button class="category-btn active" onclick="filterByCategory('All')">All</button>
-                    <button class="category-btn" onclick="filterByCategory('Momo')">Momo</button>
-                    <button class="category-btn" onclick="filterByCategory('Chowmein')">Chowmein</button>
-                    <button class="category-btn" onclick="filterByCategory('Fried Rice')">Fried Rice</button>
-                    <button class="category-btn" onclick="filterByCategory('Snacks')">Snacks</button>
-                    <button class="category-btn" onclick="filterByCategory('Drinks')">Drinks</button>
-                </div>
+        <div class="filter-search-container">
+            <div class="search-bar">
+                <input type="text" id="search-bar" placeholder="Search menu items..." onkeyup="searchMenu()">
+                <button onclick="searchMenu()"><i class="fas fa-search"></i></button>
             </div>
-            <div class="menu-grid" id="menu-content"></div>
+            <div class="category-filter">
+                <button class="category-btn active" onclick="filterByCategory('All')">All</button>
+                <button class="category-btn" onclick="filterByCategory('Momo')">Momo</button>
+                <button class="category-btn" onclick="filterByCategory('Chowmein')">Chowmein</button>
+                <button class="category-btn" onclick="filterByCategory('Fried Rice')">Fried Rice</button>
+                <button class="category-btn" onclick="filterByCategory('Snacks')">Snacks</button>
+                <button class="category-btn" onclick="filterByCategory('Drinks')">Drinks</button>
+            </div>
         </div>
+        <div class="menu-grid" id="menu-content"></div>
     </div>
 
     <a href="cart.html" class="floating-cart">
@@ -526,27 +448,17 @@
             { name: "Coke Zero Can 330ml", description: "Zero sugar cola drink", price: 2.50, image: "cokezerocan330ml.png", category: "Drinks" }
         ];
 
-        let users = [
-            { id: "admin", password: "admin123", role: "admin" },
-            { id: "aayush", password: "aayush@123", role: "user" },
-            { id: "koshal", password: "koshal@123", role: "user" },
-            { id: "richa", password: "richa@123", role: "user" },
-            { id: "susmita", password: "susmita@123", role: "user" },
-            { id: "dikshya", password: "dikshya@123", role: "user" },
-            { id: "sita", password: "sita@123", role: "user" }
-        ];
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
         let selectedCategory = 'All';
 
         function updateCartCount() {
+            const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
             const cartCount = document.getElementById('cart-count');
             const sidebarCartCount = document.getElementById('sidebar-cart-count');
             const floatingCartCount = document.getElementById('floating-cart-count');
-            cartCount.textContent = cart.length;
-            if (sidebarCartCount) sidebarCartCount.textContent = cart.length;
-            if (floatingCartCount) floatingCartCount.textContent = cart.length;
+            cartCount.textContent = totalQuantity;
+            if (sidebarCartCount) sidebarCartCount.textContent = totalQuantity;
+            if (floatingCartCount) floatingCartCount.textContent = totalQuantity;
         }
 
         function showNotification(message) {
@@ -568,85 +480,6 @@
             closeSidebar();
         }
 
-        function showLogin() { document.getElementById('login-modal').style.display = 'flex'; closeSidebar(); }
-        function hideLogin() { document.getElementById('login-modal').style.display = 'none'; }
-        function showSignup() { document.getElementById('signup-modal').style.display = 'flex'; closeSidebar(); }
-        function hideSignup() { document.getElementById('signup-modal').style.display = 'none'; }
-
-        function handleLogin() {
-            const id = document.getElementById('login-id').value;
-            const password = document.getElementById('login-password').value;
-            const user = users.find(u => u.id === id && u.password === password);
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                hideLogin();
-                updateAuthSection();
-                updateSidebarAuth();
-                if (user.role === 'admin') window.location.href = 'admin.html';
-            } else {
-                document.getElementById('login-error').classList.remove('hidden');
-            }
-        }
-
-        function handleSignup() {
-            const id = document.getElementById('signup-id').value;
-            const password = document.getElementById('signup-password').value;
-            if (users.some(u => u.id === id)) {
-                document.getElementById('signup-error').classList.remove('hidden');
-                return;
-            }
-            users.push({ id, password, role: 'user' });
-            currentUser = { id, password, role: 'user' };
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            hideSignup();
-            updateAuthSection();
-            updateSidebarAuth();
-        }
-
-        function updateAuthSection() {
-            const authButtons = document.querySelector('.auth-buttons');
-            if (currentUser) {
-                authButtons.innerHTML = `
-                    <div class="flex items-center space-x-2">
-                        <img src="useravatar.png" alt="Avatar" class="w-8 h-8 rounded-full">
-                        <a href="#" onclick="logout()" class="btn-auth">Logout</a>
-                    </div>
-                `;
-            } else {
-                authButtons.innerHTML = `
-                    <a href="#" onclick="showLogin()" class="btn-auth">Login</a>
-                    <a href="#" onclick="showSignup()" class="btn-auth">Signup</a>
-                `;
-            }
-        }
-
-        function updateSidebarAuth() {
-            const sidebarAuth = document.getElementById('sidebar-auth');
-            if (currentUser) {
-                sidebarAuth.innerHTML = `
-                    <a href="#" onclick="logout()" class="block py-2 px-4 text-sm text-FFC107 hover:bg-DA291C">Logout</a>
-                `;
-            } else {
-                sidebarAuth.innerHTML = `
-                    <a href="#" onclick="showLogin()" class="block py-2 px-4 text-sm text-FFC107 hover:bg-DA291C">Login</a>
-                    <a href="#" onclick="showSignup()" class="block py-2 px-4 text-sm text-FFC107 hover:bg-DA291C">Signup</a>
-                `;
-            }
-        }
-
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            updateAuthSection();
-            updateSidebarAuth();
-            showTab('menu');
-            closeSidebar();
-        }
-
         function renderMenu(filteredData) {
             const menuContent = document.getElementById('menu-content');
             let html = '';
@@ -658,10 +491,7 @@
                         <p>${item.description}</p>
                         <p class="price">${item.price > 0 ? `$${item.price.toFixed(2)}` : 'N/A'}</p>
                         ${item.price > 0 ? `
-                            <div class="flex space-x-2">
-                                <a href="#" onclick='addToCart(event, ${JSON.stringify(item)})' class="btn-jhola"><i class="fas fa-shopping-bag"></i> Add to Jhola</a>
-                                <a href="#" onclick='orderNow(${JSON.stringify(item)})' class="btn-order">Order</a>
-                            </div>
+                            <a href="#" onclick='addToCart(event, ${JSON.stringify(item)})' class="btn-jhola"><i class="fas fa-shopping-bag"></i> Add to Jhola</a>
                         ` : ''}
                     </div>`;
             });
@@ -713,44 +543,15 @@
 
         function addToCart(event, item) {
             event.preventDefault();
-            cart.push({ ...item, quantity: 1 });
+            const existingItem = cart.find(cartItem => cartItem.name === item.name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
             showNotification('Item Added to Jhola!');
-        }
-
-        function orderNow(item) {
-            const orderData = {
-                userId: currentUser ? currentUser.id : 'guest',
-                item: item.name,
-                price: item.price,
-                quantity: 1,
-                timestamp: new Date().toISOString()
-            };
-
-            fetch('https://script.google.com/macros/s/AKfycbyXkT53kLhcsT-ez2d2M4aY9dLjMMDAuDeLfgT-d68fogWmG-3rLzBpJp-CuCXfnn0nxA/exechttps://script.google.com/macros/s/AKfycbzSfqzeoQmlNHO8dWfMkOkVuqGKSfSPHgPkeMdVQuFJ/dev', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showNotification('Order placed successfully!');
-                    cart = [{ ...item, quantity: 1 }];
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    updateCartCount();
-                    window.location.href = 'cart.html';
-                } else {
-                    showNotification('Failed to place order.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showNotification('Error placing order.');
-            });
         }
 
         function openSidebar() {
@@ -761,9 +562,22 @@
             document.getElementById('sidebar').classList.remove('open');
         }
 
+        function closeSidebarIfClickInside(event) {
+            event.stopPropagation();
+            if (event.target.classList.contains('closebtn') || event.target.tagName === 'A') {
+                closeSidebar();
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.querySelector('.hamburger');
+            if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+                closeSidebar();
+            }
+        });
+
         renderMenu(menuData);
-        updateAuthSection();
-        updateSidebarAuth();
         updateCartCount();
     </script>
 </body>
